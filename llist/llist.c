@@ -69,3 +69,18 @@ void ll_append(struct llist *a,
 
 	a->next = b;
 }
+
+bool ll_is_circular(struct llist *l)
+{
+	struct llist *tmp = l;
+	while(l && l->next != tmp) {
+		l = l->next;
+	}
+
+	if(l == NULL) {
+		return false;
+	} else {
+		return true;
+	}
+}
+

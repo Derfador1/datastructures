@@ -2,6 +2,8 @@
 #ifndef LLIST_H
  #define LLIST_H
 
+#include <stdbool.h>
+
 struct llist {
 	double data;
 	struct llist *next;
@@ -18,6 +20,7 @@ double ll_sum(struct llist *l);
 void ll_print(struct llist *l);
 void ll_append(struct llist *a,
 		struct llist *b);
+bool ll_is_circular(struct llist *l);
 
 
 #endif

@@ -16,16 +16,21 @@ int main(void)
 	ll_add(&tail, -1.7);
 	ll_add(&tail, -19);
 
-	ll_print(list);
-	ll_print(tail);
-	printf("%lf\n", ll_sum(list));
+	ll_append(tail, tail);
 
-	ll_append(list, tail);
-	ll_print(list);
+	if(ll_is_circular(tail)) {
+		printf("tail is circular\n");
+	} else {
+		printf("tail is NOT circular\n");
+	}
 
-	printf("%lf\n", ll_sum(list));
+	if(ll_is_circular(list)) {
+		printf("list is circular\n");
+	} else {
+		printf("list is NOT circular\n");
+	}
 
-	ll_print(tail);
+
 
 	ll_destroy(list);
 
