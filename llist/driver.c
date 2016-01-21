@@ -3,6 +3,17 @@
 
 #include "llist.h"
 
+int increasing(double mint, double you)
+{
+	if(mint < you) {
+		return -1;
+	} else if(mint > you) {
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
 int main(void)
 {
 	struct llist *list = ll_create(5.3);
@@ -26,6 +37,16 @@ int main(void)
 	printf("%lf\n", ll_sum(list));
 
 	ll_print(tail);
+	if(ll_is_sorted(tail, increasing)) {
+		printf("tail is sorted\n");
+	} else {
+		printf("tail is NOT sorted\n");
+	}
+	if(ll_is_sorted(list, increasing)) {
+		printf("list is sorted\n");
+	} else {
+		printf("list is NOT sorted\n");
+	}
 
 	ll_reverse(&list);
 	ll_print(list);

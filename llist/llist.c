@@ -97,3 +97,18 @@ void ll_reverse(struct llist **l)
 
 	*l = prev;
 }
+
+bool ll_is_sorted(struct llist *l,
+		int (*cmp)(double, double))
+{
+	while(l && l->next) {
+		if(1 == cmp(l->data,
+					l->next->data)) {
+			return false;
+		}
+		l = l->next;
+	}
+
+	return true;
+}
+

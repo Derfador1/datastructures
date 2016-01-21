@@ -23,4 +23,7 @@ void ll_append(struct llist *a,
 bool ll_is_circular(struct llist *l);
 void ll_reverse(struct llist **l);
 
+bool ll_is_sorted(struct llist *l,
+		int (*cmp)(double, double));
+
 #endif
