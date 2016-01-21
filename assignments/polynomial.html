@@ -1,0 +1,123 @@
+<article class="assignment">
+	<h1>Polynomials</h1>
+
+	<p>Polynomials are a series of algebraic terms.  As an example:</p>
+
+	<p>3x<sup>2</sup> &minus; 6x + 1</p>
+
+	<p>is a polynomial with the single variable <cite>x</cite>.  Each term in a
+	polynomial will involve a coefficient and an exponent (either of which may be
+	0).  Polynomials could have any number of terms, but must be presented from
+	the highest to least exponent:</p>
+
+	<p>x<sup>5</sup> + 2x<sup>4</sup> &minus; x<sup>2</sup> &minus; 100</p>
+
+	<p>Coefficients may be any integer, but the exponents may only be nonnegative
+	integers.  It is possible to combine polynomials via basic arithmetic; they
+	may be added or subtracted, multiplied or divided:</p>
+
+	<p>(3x<sup>2</sup> &minus; 6x + 1) + (&minus;x<sup>2</sup> + 3x + 7) = 2x<sup>2</sup> &minus; 3x + 8</p>
+
+	<p>(3x<sup>2</sup> &minus; 6x) &times; (&minus;x + 7) = &minus;3x<sup>3</sup> + 27x<sup>2</sup> &minus; 42x</p>
+
+	<p>Polynomials can always be evaluated for a particular value of <cite>x</cite>.</p>
+
+	<p>x<sup>2</sup> &minus; 2x + 1 | x = 5 &rarr; (5)<sup>2</sup> &minus; 2 &times; (5) + 1 = 16</p>
+
+	<p>Finally, most polynomials have "solutions", that is, values of <cite>x</cite> that
+	when evaluated, result in 0.</p>
+
+	<p>x<sup>2</sup> &minus; 6x = (x) &times; (x - 6) &rarr; x = 6, x = 0</p>
+
+	<p>You are provided with some starter code, and are expected to fill in the missing code.</p>
+
+	<h2>Starter Code</h2>
+<pre><code lang="c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+struct term {
+  int coeff;
+  int exp;
+  struct term *next;
+};
+
+typedef struct term polynomial;
+
+struct term *make_term(int coeff, int exp)
+{
+  struct term *node = malloc(sizeof(*node));
+  if(node) {
+    node-&gt;coeff = coeff;
+    node-&gt;exp = exp;
+    node-&gt;next = NULL;
+  }
+  return node;
+}
+
+void poly_free(polynomial *eqn)
+{
+  while(eqn) {
+    struct term *tmp = eqn-&gt;next;
+    free(eqn);
+    eqn = tmp;
+  }
+}
+
+void poly_print(polynomial *eqn)
+{
+  if(!eqn) {
+    return;
+  }
+  if(eqn-&gt;coeff) {
+    printf("%c%d", eqn-&gt;coeff &gt; 0 ? '+' : '\0', eqn-&gt;coeff);
+    if(eqn-&gt;exp &gt; 1) {
+      printf("x^%d", eqn-&gt;exp);
+    } else if(eqn-&gt;exp == 1) {
+      printf("x");
+    }
+    printf(" ");
+  }
+  poly_print(eqn-&gt;next);
+}
+</code></pre>
+
+	<h2>Requirements</h2>
+	<p>Implement the following functions.  Any polynomial generated must have its terms sorted from greatest to least exponent.  All functions may rely on that sorted assumption.</p>
+
+	<dl>
+		<dt><code>char *poly_to_string(polynomial *p);</code></dt>
+		<dd>Returns a newly-<code>malloc</code>ed string that displays the given polynomial</dd>
+		<dt><code>polynomial *add_poly(polynomial *a, polynomial *b);</code></dt>
+		<dd>Returns a newly-<code>malloc</code>ed polynomial that is the sum of the two arguments</dd>
+		<dt><code>polynomial *sub_poly(polynomial *a, polynomial *b);</code></dt>
+		<dd>Returns a newly-<code>malloc</code>ed polynomial that is the difference of the two arguments</dd>
+		<dt><code>bool is_equal(polynomial *a, polynomial *b);</code></dt>
+		<dd>Returns true if the two arguments have the same terms; false otherwise</dd>
+		<dt><code>void apply_to_each_term(polynomial *p, void (*transform)(struct term *));</code></dt>
+		<dd>Calls the function <code>transform</code> on each term of the polynomial</dd>
+		<dt><code>double eval_poly(polynomial *p, double x);</code></dt>
+		<dd>Evaluates the polynomial by substituting <code>x</code> in the variable of the polynomial</dd>
+	</dl>
+
+	<p>Your results should be in the files <code>polynomial.h</code> and
+	<code>polynomial.c</code>.  You may include other files in your project, but
+	they will not be considered for grading.</p>
+
+	<p>Your project should be on your github account under the project name <code>polynomial</code>.</p>
+
+	<p>Your project will be pulled from github at 12:01AM EST Jan 23 2016.</p>
+
+	<h2 style="page-break-before: always">Flourishes</h2>
+	<ul>
+		<li>Change the data (and all supporting functions) to be the <code>complex</code> type.</li>
+		<li>Implement the multiplication function <code>polynomial *multiply_poly(polynomial *a, polynomial *b)</code>.</li>
+		<li>Implement the division function <code>polynomial *divide_poly(polynomial *a, polynomial *b)</code>.</li>
+		<li>Implement the solution function <code>int roots_poly(polynomial *p, double *solutions, size_t sz)</code>, which finds the real solutions of the polynomial (values of x that yield 0 for the whole equation).  It should return the number of solutions found, and place up to <code>sz</code> solutions in the parameter <code>solutions</code>.</li>
+	</ul>
+
+
+	<p><strong>Challenge</strong>: Implement the solution function <code>int
+		all_roots_poly(polynomial *p, complex *solutions, size_t sz)</code>, which
+	finds all the solutions of the polynomial.</p>
+
+</article>
