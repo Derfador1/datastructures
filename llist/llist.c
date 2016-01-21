@@ -40,3 +40,13 @@ void ll_remove(struct llist **l)
 	ll_destroy(old_head);
 }
 
+double ll_sum(struct llist *l)
+{
+	double total = 0;
+	while(l) {
+		total += l->data;
+		l = l->next;
+	}
+	return total;
+}
+

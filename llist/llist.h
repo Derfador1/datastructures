@@ -14,4 +14,6 @@ void ll_add(struct llist **l, double data);
 void ll_remove(struct llist **l);
 
 
+double ll_sum(struct llist *l);
+
 #endif
