@@ -15,5 +15,7 @@ void ll_remove(struct llist **l);
 
 
 double ll_sum(struct llist *l);
+void ll_print(struct llist *l);
+
 
 #endif

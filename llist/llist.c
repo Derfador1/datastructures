@@ -1,6 +1,7 @@
 
 #include "llist.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 
 
@@ -48,5 +49,14 @@ double ll_sum(struct llist *l)
 		l = l->next;
 	}
 	return total;
+}
+
+void ll_print(struct llist *l)
+{
+	while(l) {
+		printf("%lf -> ", l->data);
+		l = l->next;
+	}
+	printf("NULL\n");
 }
 

@@ -9,11 +9,9 @@ int main(void)
 	ll_add(&list, 3.1);
 	ll_add(&list, 4.2);
 	ll_add(&list, 6.0);
+	ll_add(&list, -8.8);
 
-	printf("%lf\n", list->data);
-	printf("%lf\n", list->next->data);
-	printf("%lf\n", list->next->next->data);
-	printf("%lf\n", list->next->next->next->data);
+	ll_print(list);
 
 	printf("%lf\n", ll_sum(list));
 
