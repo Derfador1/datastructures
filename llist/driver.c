@@ -48,6 +48,11 @@ int main(void)
 		printf("list is NOT sorted\n");
 	}
 
+	ll_insert_increasing(&tail, 97);
+	ll_insert_increasing(&tail, 0);
+	ll_insert_increasing(&tail, -9001);
+	ll_print(tail);
+
 	ll_reverse(&list);
 	ll_print(list);
 

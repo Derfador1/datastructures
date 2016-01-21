@@ -112,3 +112,25 @@ bool ll_is_sorted(struct llist *l,
 	return true;
 }
 
+void ll_insert_increasing(
+		struct llist **l,
+		double data)
+{
+	struct llist *head = *l;
+	struct llist *created = ll_create(data);
+	struct llist *prev = NULL;
+
+	while(head && head->data <= data) {
+		prev = head;
+		head = head->next;
+	}
+
+	created->next = head;
+	if(prev) {
+		prev->next = created;
+	} else {
+		// We are inserting at the head of this list
+		*l = created;
+	}
+
+}

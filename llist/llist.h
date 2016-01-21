@@ -26,4 +26,8 @@ void ll_reverse(struct llist **l);
 bool ll_is_sorted(struct llist *l,
 		int (*cmp)(double, double));
 
+void ll_insert_increasing(
+		struct llist **l,
+		double data);
+
 #endif
