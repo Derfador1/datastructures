@@ -10,10 +10,11 @@ struct llist {
 };
 
 struct llist *ll_create(void *data);
+void ll_disassemble(struct llist *l);
 void ll_destroy(struct llist *l);
 
 void ll_add(struct llist **l, void *data);
-void ll_remove(struct llist **l);
+void *ll_remove(struct llist **l);
 
 
 void ll_append(struct llist *a,
