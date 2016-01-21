@@ -27,6 +27,9 @@ int main(void)
 
 	ll_print(tail);
 
+	ll_reverse(&list);
+	ll_print(list);
+
 	ll_destroy(list);
 
 }

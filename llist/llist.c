@@ -84,3 +84,16 @@ bool ll_is_circular(struct llist *l)
 	}
 }
 
+void ll_reverse(struct llist **l)
+{
+	struct llist *head = *l;
+	struct llist *prev = NULL;
+	while(head) {
+		struct llist *after = head->next;
+		head->next = prev;
+		prev = head;
+		head = after;
+	}
+
+	*l = prev;
+}

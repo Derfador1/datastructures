@@ -21,6 +21,6 @@ void ll_print(struct llist *l);
 void ll_append(struct llist *a,
 		struct llist *b);
 bool ll_is_circular(struct llist *l);
-
+void ll_reverse(struct llist **l);
 
 #endif
