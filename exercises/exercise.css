@@ -1,0 +1,115 @@
+body {
+	counter-reset: module;
+}
+
+div.closed {
+	background-color: #FC3;
+	height: 3em;
+	overflow: hidden;
+}
+
+.module {
+	counter-increment: module;
+	counter-reset: exercise;
+}
+.module h1:before {
+	content: "Module " counter(module) ": ";
+}
+
+.exercise {
+	margin-bottom: 1em;
+	border: 1px solid #EEE;
+	counter-increment: exercise;
+}
+.exercise:before {
+	display: block;
+	content: "Exercise " counter(exercise);
+	font-weight: bold;
+	font-size: larger;
+}
+
+aside {
+	font-size: small;
+}
+
+pre {
+	position: relative;
+
+	border-left: 2px solid #FC3;
+	padding: 4px;
+
+	background-color: #EEE;
+}
+
+pre samp {
+
+	display: block;
+	overflow: auto;
+}
+
+pre code {
+
+	display: block;
+	overflow: auto;
+}
+
+*[lang] {
+	display: none;
+}
+
+*[lang~="c"] {
+	display: initial;
+}
+
+.invoke:before {
+	content: "./";
+}
+.invoke:after {
+	content: "";
+}
+
+
+pre code[lang]:hover:before {
+	content: attr(lang) " code";
+
+	position: absolute;
+	top: 3px;
+	right: 4px;
+
+	font-size: smaller;
+	font-family: inherit;
+	background-color: #FC3;
+}
+
+pre samp:hover:after {
+	content: "Command-line output";
+
+	position: absolute;
+	right: 4px;
+	bottom: 2px;
+
+	font-size: smaller;
+	font-family: inherit;
+	background-color: #FC3;
+}
+
+pre samp kbd {
+	font-weight: bold;
+}
+
+pre span.prompt {
+	color: #999;
+}
+
+pre span.highlight {
+	color: #FC3;
+}
+
+table, th, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+th, td {
+	padding: 0 0.5em;
+}

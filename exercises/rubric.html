@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Grading Rubric for Developer Prep Cohort</title>
+	<style type="text/css">
+		<!--
+		table {
+			border-collapse: collapse;
+			table-layout: fixed;
+		}
+		td, th {
+			border: 1px solid black;
+			padding: .5em .25em;
+		}
+		-->
+	</style>
+</head>
+<body>
+
+<table>
+	<thead>
+		<tr>
+			<th style="width: 5%"></th>
+			<th style="width: 19%">90-100</th>
+			<th style="width: 19%">80-89</th>
+			<th style="width: 19%">70-79</th>
+			<th style="width: 19%">60-69</th>
+			<th style="width: 19%">50-59</th>
+		</tr>
+	</thead>
+
+	<tr>
+		<th>Correct</th>
+		<td>Program runs with no errors.  All requirements are met.  At least one optional feature is implemented.</td>
+		<td>Program runs with no errors.  All requirements are met.</td>
+		<td>Program can be made to crash with unusual input, or some minor requirements are missing.</td>
+		<td>Program can be made to crash, or some requirements are missing.</td>
+		<td>Program crashes during normal operation, or many requirements are missing.</td>
+	</tr>
+
+	<tr>
+		<th>Readable</th>
+		<td>Code is consistently formatted.  Variable and function names clearly indicate what they do or are used for.</td>
+		<td>One or two formatting inconsistencies, or one or two poorly-named variables or functions.</td>
+		<td>Formatting inconsistencies in large or multiple areas, or a number of poorly-named variables or functions.</td>
+		<td>Extremely inconsistent formatting, or many poorly-named variables.</td>
+		<td>IOCCC-like entry.</td>
+	</tr>
+
+	<tr>
+		<th>Clean</th>
+		<td>Program compiles cleanly under <code>-Wall -Wextra -Wpedantic -Wwrite-strings -Wstack-usage=1024 -Wfloat-equal -Waggregate-return -Winline</code>.  Valgrind shows now blocks lost.</td>
+		<td>Program compiles cleanly under <code>-Wall -Wextra -pedantic</code>  Valgrind shows no blocks lost.</td>
+		<td>Program compiles cleanly under <code>-Wall</code>.  Valgrind shows no blocks definitely lost.</td>
+		<td>Program compiles cleanly, but without any compiler flags.</td>
+		<td>Program compiles with multiple warnings without any compiler flags.</td>
+	</tr>
+
+	<tr>
+		<th>Architecture</th>
+		<td>Uses excellent choices of data structures and algorithms.  Program flow is easy to follow.</td>
+		<td>Uses good choices of data structures and algorithms.  Program flow may have a small inconsistency or point of confusion.</td>
+		<td>At least one data structure or algorithm was a poor choice.  Program flow may be confused in places.</td>
+		<td>A few poor choices in data structures or algorithms.  Program flow is confusing throughout.</td>
+		<td>Poor choices of data structures or algorithms.  Program flow is jumbled, incorrect, or missing.</td>
+	</tr>
+
+	<tr>
+		<th>Idiomatic</th>
+		<td>Code shows familiarity with pointers and memory manipulation where appropriate.</td>
+		<td>Code makes use of pointers and memory manipulation, but might be needlessly cautious.</td>
+		<td>Code has at least one misunderstanding or confusion regarding pointers and memory manipulation.</td>
+		<td>Code shows numerous misunderstandings of pointers.</td>
+		<td>Code shows fear/avoidance of pointers, buffer overruns, or other inappropriate memory jiggerypokery.</td>
+	</tr>
+
+	<tr>
+		<th>Efficient</th>
+		<td>Program uses minimal memory and CPU usage to execute.</td>
+		<td>Program executes with reasonable amounts of memory and CPU usage.</td>
+		<td>Program has one or two inefficiencies in memory or CPU use.</td>
+		<td>Program has at least one major inefficiency in memory or CPU use, or memory leak.</td>
+		<td>Program has multiple memory leaks, or can be crashed or wedged from inefficient CPU or memory use.</td>
+	</tr>
+	<tr>
+		<th>Version Control</th>
+		<td>Commit messages are descriptive and clear.  Each commit is independent of the other.  Code builds successfully at each commit in the master or mainline branch.</td>
+		<td>Each commit generally fixes or addresses an independent issue.  One or two commits in the mainline branch may not build successfully.</td>
+		<td>Some commits address disparate issues.  Some commits in the mainline branch may not build successfully.  Some commit messages are terse or unclear.</td>
+		<td>Multiple issues addressed in a single commit.  Multiple mainline commits do not build.  Many commit messages are terse or unclear.</td>
+		<td>Code is in just one large commit, or no version control is used.</td>
+	</tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,117 @@
+<link href="../exercise.css" rel="stylesheet" type="text/css"/>
+
+<section class="module">
+	<h1>Linked Lists</h1>
+
+	<article class="exercise">
+		<p>Assume that <code>struct llist</code> is defined thusly:</p>
+
+		<pre><code lang="c">struct llist {
+	double data;
+	struct llist *next;
+};</code></pre>
+
+		<p>Implement the following:</p>
+
+		<dl>
+			<dt><code>double ll_sum(struct llist *l)</code></dt>
+			<dd>Return the sum of all members of the list</dd>
+			<dt><code>void ll_append(struct llist *a, struct llist *b)</code></dt>
+			<dd>Appends <var>b</var> to the end of <var>a</var></dd>
+			<dt><code>bool ll_equal_by(llist *a, llist *b, int (*cmp)(double, double))</code></dt>
+			<dd>Compares the two lists, checking equality of the members by using <code>cmp</code>.</dd>
+			<dt><code>size_t ll_flatten(llist *l, int (*cmp)(double, double))</code></dt>
+			<dd>Removes any duplicate items from the list, retaining only the first
+			occurrence of each: (1 1 5 2 2 3 3 2 3 3 5) becomes (1 5 2 3)</dd>
+			<dt><code>bool ll_is_sorted(llist *l, int (*cmp)(double, double))</code></dt>
+			<dd>Checks to see if the list is sorted, using <code>cmp</code>.</dd>
+			<dt><code>void ll_reverse(llist **l)</code></dt>
+			<dd>Reverse the list in-place.</dd>
+			<dt><code>bool ll_is_circular(struct llist *l)</code></dt>
+			<dd>Checks to see if the list is circular; that it eventually loops back to the head</dd>
+			<dt><code>void ll_insert_sorted(struct llist *l, double)</code></dt>
+			<dd>Inserts the value before the first value that is greater than the value being inserted.</dd>
+		</dl>
+
+		<p><strong>Challenge</strong>: Determine the Big-O complexity of each function.</p>
+
+		<p><strong>Challenge</strong>: Implement versions where the data is of type <code>void *</code>.</p>
+
+		<p><strong>Challenge</strong>: Implement <code>bool ll_has_cycle(struct llist *l)</code>, which
+		detects if the list contains a loop (which might not point back to the head node).</p>
+	</article>
+
+	<article class="exercise">
+		<p>The <dfn>Josephus Problem</dfn> involves a number of people in a circle that are
+		methodically removed until only one is left.  Beginning counting with the
+		first player, every <var>N</var>th player is eliminated until only one is left.</p>
+
+		<p>Write a program that accepts a file as an argument.  The first line of the file
+		should be an integer; each subsequent line should be a name.  The program should
+		then treat the names as being in the circle, and eliminate people one by one
+		until only one name is left, printing the removed person each time.</p>
+
+		<pre>
+<samp><span class="prompt">&gt;</span> <kbd>cat &gt;josephus.txt</kbd>
+7
+Shimon
+Antigonus
+Nehorai
+Gamliel
+Tarfon
+Akiva
+Tzadok
+Yonsan
+Yahuda
+Meir
+Elazar
+Josephus
+
+<span class="prompt">&gt;</span> <kbd class="invoke">josephus</kbd> <kbd>josephus.txt</kbd>
+Tzadok is eliminated
+Antigonus is eliminated
+Meir is eliminated
+Akiva is eliminated
+Gamliel is eliminated
+Nehorai is eliminated
+Tarfon is eliminated
+Yahuda is eliminated
+Shimon is eliminated
+Yonsan is eliminated
+Elazar is eliminated
+
+Josephus wins!
+
+<span class="prompt">&gt;</span> <kbd>sed -i -e's/7/3/' josephus.txt</kbd>
+<span class="prompt">&gt;</span> <kbd class="invoke">josephus</kbd> <kbd>josephus.txt</kbd>
+Nehorai is eliminated
+Akiva is eliminated
+Yahuda is eliminated
+Josephus is eliminated
+Gamliel is eliminated
+Yonsan is eliminated
+Shimon is eliminated
+Tzadok is eliminated
+Antigonus is eliminated
+Elazar is eliminated
+Tarfon is eliminated
+
+Meir wins!
+
+<span class="prompt">&gt;</span> <kbd>cat &gt;josephus.txt</kbd> <kbd>josephus.txt</kbd>
+6
+Tinker
+Tailor
+Soldier
+Sailor
+
+<span class="prompt">&gt;</span> <kbd class="invoke">josephus</kbd> <kbd>josephus.txt</kbd>
+Tailor is eliminated
+Tinker is eliminated
+Sailor is eliminated
+
+Soldier wins!
+</samp></pre>
+	</article>
+
+</section>

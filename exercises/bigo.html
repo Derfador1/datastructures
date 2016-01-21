@@ -1,0 +1,168 @@
+<link href="exercise.css" rel="stylesheet" type="text/css"/>
+
+<section class="module">
+	<h1>Big O Complexity Analysis</h1>
+
+	<article class="exercise">
+		<p>Complete the table.</p>
+
+		<table>
+			<thead>
+				<tr>
+					<th>Complexity</th>
+					<th>T(N=1000)</th>
+					<th>T(N = 1,000,000)</th>
+				</tr>
+			</thead>
+			<tr>
+				<td>O(Nlog N)</td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>O(N<sup>2</sup>)</td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>O(log N)</td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>O(Nlog N<sup>3</sup>)</td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>O(N)</td>
+				<td>1ms</td>
+				<td>1s</td>
+			</tr>
+			<tr>
+				<td>O(N!)</td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>O(2<sup>N</sup>)</td>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+	</article>
+
+	<article class="exercise">
+		<p>Estimate the time complexity of the following code.  Give best, worst, and
+		average case:</p>
+
+<pre><code lang="c">void bigo1(int *arr, size_t len)
+{
+	int z = 0;
+	size_t pos = len;
+	while(pos--) {
+		if(arr[pos] &lt; 0) {
+			arr[pos] = 0;
+			pos = len;
+		}
+	}
+}
+</code></pre>
+	</article>
+
+	<article class="exercise">
+		<p>Estimate the time complexity of the following code.  Give best, worst, and
+		average case:</p>
+
+<pre><code lang="c">void bigo2(int *arr, size_t len)
+{
+	int z = 0;
+	size_t pos = len;
+	while(pos--) {
+		if(arr[pos] &lt; 0) {
+			arr[pos] /= 2;
+			pos = len;
+		}
+	}
+}
+</code></pre>
+	</article>
+
+	<article class="exercise">
+		<p>Estimate the time complexity of the following code.  Give best, worst, and
+		average case:</p>
+
+<pre><code lang="c">void bigo3(int *arr, size_t len)
+{
+	int z = 0;
+	size_t pos = len;
+	while(pos--) {
+		if(arr[pos] &lt; 0) {
+			arr[pos] = len;
+			pos /= 2;
+		}
+	}
+}
+</code></pre>
+	</article>
+
+	<article class="exercise">
+		<p>Estimate the time complexity of the following code.  Give best, worst, and
+		average case:</p>
+
+<pre><code lang="c">void bigos(char *str)
+{
+	size_t len = strlen(str);
+	while(len) {
+		printf("%c\n", str[len-1]);
+		len /= 4;
+	}
+}
+</code></pre>
+	</article>
+
+	<article class="exercise">
+		<p>Estimate the time complexity of the following code.  Give best, worst, and
+		average case:</p>
+
+<pre><code lang="c">int bigo4(int limit)
+{
+	int total = 0;
+	for(int a = 1; a &lt; limit; a *= 2) {
+		for(int b = limit; b &gt; 0; b /= 2) {
+			for(int c = b; c &lt; limit; c += 2) {
+				total += a + b*c;
+			}
+		}
+	}
+	return total;
+}
+</code></pre>
+	</article>
+
+	<article class="exercise">
+		<p>Estimate the time complexity of the following library functions:</p>
+
+		<ul>
+			<li><code>strlen</code></li>
+			<li><code>strcmp</code></li>
+			<li><code>free</code></li>
+			<li><code>strspn</code></li>
+			<li><code>putc</code></li>
+			<li><code>sleep</code></li>
+			<li><code>abs</code></li>
+			<li><code>fabs</code></li>
+		</ul>
+	</article>
+
+	<article class="exercise">
+		<p>Two algorithms exist to solve a problem: One has processing time 4<var>n</var><sup>1.5</sup>
+		and the other has processing time 0.04<var>n</var><sup>1.75</sup>.  Which
+		should be used for 1000 elements?  One million?  One billion?</p>
+	</article>
+
+
+
+
+</section>
+
