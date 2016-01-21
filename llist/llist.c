@@ -60,3 +60,12 @@ void ll_print(struct llist *l)
 	printf("NULL\n");
 }
 
+void ll_append(struct llist *a,
+		struct llist *b)
+{
+	while(a->next) {
+		a = a->next;
+	}
+
+	a->next = b;
+}
