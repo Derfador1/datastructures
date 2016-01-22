@@ -35,6 +35,7 @@ struct llist *read_file(FILE *fp, size_t *hops)
 		perror("Cannot initialize buffer");
 		return NULL;
 	}
+	struct llist *head = NULL;
 
 	// Extract the first line, which is the hopcount
 	if(!fgets(buf, BUFLEN, fp)) {
@@ -48,7 +49,6 @@ struct llist *read_file(FILE *fp, size_t *hops)
 		goto failure;
 	}
 
-	struct llist *head = NULL;
 	struct llist *tail = head;
 
 	while(fgets(buf, BUFLEN, fp)) {
@@ -66,7 +66,7 @@ struct llist *read_file(FILE *fp, size_t *hops)
 
 		char *nl = strchr(buf, '\n');
 		if(!nl) {
-			fprintf(stderr, "Name beginning '%s' is too long; max length of %zu allowed\n", buf, BUFLEN-1);
+			fprintf(stderr, "Name beginning '%s' is too long; max length of %zu allowed\n", buf, BUFLEN-2);
 			goto failure;
 		}
 		*nl = '\0';
