@@ -24,6 +24,73 @@ void remove_next(struct llist *l)
 	ll_destroy(to_remove);
 }
 
+struct llist *read_file(FILE *fp, size_t *hops)
+{
+	if(!fp) {
+		return NULL;
+	}
+
+	char *buf = malloc(BUFLEN);
+	if(!buf) {
+		perror("Cannot initialize buffer");
+		return NULL;
+	}
+
+	// Extract the first line, which is the hopcount
+	if(!fgets(buf, BUFLEN, fp)) {
+		perror("Failed to read from file");
+		goto failure;
+	}
+	char *err = NULL;
+	*hops = strtol(buf, &err, 10);
+	if(err && *err != '\n') {
+		perror("First line must be a positive number");
+		goto failure;
+	}
+
+	struct llist *head = NULL;
+	struct llist *tail = head;
+
+	while(fgets(buf, BUFLEN, fp)) {
+		if(ferror(fp)) {
+			perror("Failed to read from file");
+			goto failure;
+		}
+
+		// These buffers are memory-managed by the list
+		char *cpy = malloc(BUFLEN);
+		if(!cpy) {
+			perror("Ran out of space for names");
+			goto failure;
+		}
+
+		char *nl = strchr(buf, '\n');
+		if(!nl) {
+			fprintf(stderr, "Name beginning '%s' is too long; max length of %zu allowed\n", buf, BUFLEN-1);
+			goto failure;
+		}
+		*nl = '\0';
+
+		struct llist *new_tail = ll_create(strncpy(cpy, buf, BUFLEN));
+		if(!head) {
+			head = new_tail;
+			tail = head;
+		} else {
+			tail->next = new_tail;
+			tail = new_tail;
+		}
+	}
+
+	free(buf);
+	ll_circlify(head);
+	return head;
+
+failure:
+	ll_destroy(head);
+	free(buf);
+	return NULL;
+}
+
 int main(int argc, char *argv[])
 {
 	if(argc != 2) {
@@ -37,69 +104,30 @@ int main(int argc, char *argv[])
 		return 2;
 	}
 
-	char *buf = malloc(BUFLEN);
-	if(!buf) {
-		perror("Cannot initialize buffer");
-		fclose(fp);
-		return 7;
-	}
 	size_t hops = 0;
 
-	struct llist *group = NULL;
-
-	while(fgets(buf, BUFLEN, fp)) {
-		if(ferror(fp)) {
-			perror("Failed to read from file");
-			ll_destroy(group);
-			fclose(fp);
-			free(buf);
-			return 3;
-		}
-		if(!hops) {
-			char *err = NULL;
-			hops = strtol(buf, &err, 10);
-			if(err && *err != '\n') {
-				perror("First line must be a positive number");
-				ll_destroy(group);
-				fclose(fp);
-				free(buf);
-				return 4;
-			}
-			continue;
-		}
-
-		char *cpy = malloc(BUFLEN);
-		if(!cpy) {
-				ll_destroy(group);
-				fclose(fp);
-				free(buf);
-		}
-
-		char *nl = strchr(buf, '\n');
-		if(!nl) {
-			fprintf(stderr, "Name beginning '%s' is too long; max length of %zu allowed\n", buf, BUFLEN-1);
-			return 9;
-		}
-		*nl = '\0';
-		struct llist *cur = ll_create(strncpy(cpy, buf, BUFLEN));
-		cur->next = group;
-		group = cur;
-	}
+	struct llist *group = read_file(fp, &hops);
 	fclose(fp);
-	free(buf);
 
-	ll_circlify(group);
+	if(!group) {
+		fprintf(stderr, "Exiting.\n");
+		return 4;
+	}
+
 	while(group != group->next) {
 		size_t duck = hops;
+		struct llist *prev = group;
+		// TODO: Does not work for a hop-count of 1
 		while(--duck) {
+			prev = group;
 			group = group->next;
 		}
-		printf("%s is eliminated\n", (char *)group->next->data);
-		remove_next(group);
-		group = group->next;
+		printf("%s is eliminated\n", (char *)group->data);
+		remove_next(prev);
+		group = prev->next;
 	}
 
-	printf("%s lives!\n", (char *)group->data);
+	printf("\n%s lives!\n", (char *)group->data);
 
 	remove_next(group);
 }
