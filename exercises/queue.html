@@ -1,0 +1,54 @@
+<link href="../exercise.css" rel="stylesheet" type="text/css"/>
+
+<section class="module">
+	<h1>Queues</h1>
+
+	<article class="exercise">
+		<p>Assume that <code>typedef queue</code> stores <code>double</code> and
+		has the following functions defined:</p>
+
+		<dl>
+			<dt><code>queue *queue_create(void)</code></dt>
+			<dt><code>void queue_destroy(queue *q)</code></dt>
+			<dt><code>void queue_enqueue(queue *q, double datum)</code></dt>
+			<dt><code>double queue_dequeue(queue *q)</code></dt>
+			<dt><code>bool queue_is_empty(queue *q)</code></dt>
+		</dl>
+
+		<p>Implement the following methods:</p>
+
+		<dl>
+			<dt><code>void queue_drain_into(queue *dst, queue *src)</code></dt>
+			<dd>Drains all items in <code>src</code> into <code>dst</code>.</dd>
+			<dt><code>void queue_flatten(queue **q)</code></dt>
+			<dd>Removes any duplicate items from the queue, retaining only the first
+			occurrence of each: (1 1 5 2 2 3 3 2 3 3 5) becomes (1 5 2 3).</dd>
+		</dl>
+
+		<p><strong>Challenge</strong>: Determine the Big-O complexity of each function.</p>
+
+		<p><strong>Challenge</strong>: Implement versions where the data is of type <code>void *</code>.</p>
+	</article>
+
+	<article class="exercise">
+
+	<p>Given the following implementation of <code>typedef queue</code>:</p>
+
+	<pre><code lang="c">typedef struct {
+	stack *enqueue;
+	stack *dequeue;
+} queue;</code></pre>
+
+	<p>Implement the following functions:</p>
+
+		<dl>
+			<dt><code>queue *queue_create(void)</code></dt>
+			<dt><code>void queue_destroy(queue *q)</code></dt>
+			<dt><code>void queue_enqueue(queue *q, double datum)</code></dt>
+			<dt><code>double queue_dequeue(queue *q)</code></dt>
+			<dt><code>bool queue_is_empty(queue *q)</code></dt>
+		</dl>
+
+	</article>
+
+</section>

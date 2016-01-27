@@ -1,0 +1,77 @@
+<link href="../exercise.css" rel="stylesheet" type="text/css"/>
+
+<section class="module">
+	<h1>Stacks</h1>
+
+	<article class="exercise">
+		<p>Assume that <code>typedef stack</code> stores <code>double</code> and
+		has the following functions defined:</p>
+
+		<dl>
+			<dt><code>stack *stack_create(void)</code></dt>
+			<dt><code>void stack_destroy(stack *s)</code></dt>
+			<dt><code>void stack_push(stack *s, double datum)</code></dt>
+			<dt><code>double stack_pop(stack *s)</code></dt>
+			<dt><code>bool stack_is_empty(stack *s)</code></dt>
+		</dl>
+
+		<p>Implement the following methods:</p>
+
+		<dl>
+			<dt><code>void stack_reverse(stack **s)</code></dt>
+			<dd>Reverse the stack.</dd>
+			<dt><code>bool stack_is_sorted(stack *s, int (*cmp)(double, double))</code></dt>
+			<dd>Checks to see if the stack is sorted, using <code>cmp</code>.  Note that the
+			stack must be put back after it is checked!</dd>
+		</dl>
+
+		<p><strong>Challenge</strong>: Determine the Big-O complexity of each function.</p>
+
+		<p><strong>Challenge</strong>: Implement versions where the data is of type <code>void *</code>.</p>
+	</article>
+
+	<article class="exercise">
+		<p>Write a program that allows the user to type in a sentence.</p>
+
+	</article>
+
+	<article class="exercise">
+		<p>Suppose that a client performs an intermixed sequence of push and pop
+		operations. The push operations put the integers 0 through 9 in order on to
+		the stack; the pop operations print out the popped value. Which of the
+		following outputs could not occur?</p>
+
+		<ul>
+			<li>4 3 2 1 0 9 8 7 6 5</li>
+			<li>4 6 8 7 5 3 2 9 0 1 </li>
+			<li>2 5 6 7 4 8 9 3 1 0</li>
+			<li>4 3 2 1 0 5 6 7 8 9</li>
+			<li>1 2 3 4 5 6 9 8 7 0 </li>
+			<li>0 4 6 5 3 8 1 7 2 9 </li>
+			<li>1 4 7 9 8 6 5 3 0 2 </li>
+			<li>2 1 4 3 6 5 8 7 9 0</li>
+		</ul>
+	</article>
+
+	<article class="exercise">
+		<p>Write a program that prompts a user for a string of RPN calculator instructions.
+		It should support addition, subtraction, division, and multiplication on floating-point
+		numbers.</p>
+
+		<pre>
+<samp><span class="prompt">&gt;</span> <kbd class="invoke">rpn</kbd>
+Enter a calculation: <kbd>4 7 * 2 - 0.5 +</kbd>
+-27.5
+<span class="prompt">&gt;</span> <kbd class="invoke">rpn</kbd>
+Enter a calculation: <kbd>1 2 3 4 5 6 7 8 + + + + + +</kbd>
+Warning: some arguments unused
+35
+<span class="prompt">&gt;</span> <kbd class="invoke">rpn</kbd>
+Enter a calculation: <kbd>2 / 3</kbd>
+Error: not enough arguments to '/'
+</samp></pre>
+
+		<p><strong>Challenge</strong>: Add support for exponentiation
+		(a<sup>b</sup>) and logarithms (log<sub>b</sub> a).</p>
+	</article>
+</section>
