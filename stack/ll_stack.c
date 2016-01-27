@@ -20,6 +20,14 @@ void stack_destroy(stack *s)
 	free(s);
 }
 
-bool stack_is_empty(stack *s);
+bool stack_is_empty(stack *s)
+{
+	if(!s || !s->head) {
+		return true;
+	}
+
+	return false;
+}
+
 void stack_push(stack *s, double data);
 double stack_pop(stack *s);
