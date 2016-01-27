@@ -15,7 +15,7 @@ typedef struct {
 
 #else
 
-#include "llist.h"
+#include "double_llist.h"
 typedef struct {
 	struct llist *head;
 } stack;
