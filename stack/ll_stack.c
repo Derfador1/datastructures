@@ -29,5 +29,32 @@ bool stack_is_empty(stack *s)
 	return false;
 }
 
-void stack_push(stack *s, double data);
-double stack_pop(stack *s);
+void stack_push(stack *s, double data)
+{
+	if(!s) {
+		return;
+	}
+
+	struct llist *new_head = ll_create(data);
+	if(!new_head) {
+		return;
+	}
+	new_head->next = s->head;
+	s->head = new_head;
+}
+
+double stack_pop(stack *s)
+{
+	if(stack_is_empty(s)) {
+		return 0;
+	}
+
+	struct llist *old_head = s->head;
+	double value = old_head->data;
+
+	s->head = old_head->next;
+	old_head->next = NULL;
+	ll_destroy(old_head);
+
+	return value;
+}
