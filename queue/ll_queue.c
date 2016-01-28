@@ -23,7 +23,13 @@ void queue_destroy(queue *q)
 	free(q);
 }
 
-bool queue_is_empty(queue *q);
+bool queue_is_empty(queue *q)
+{
+	if(!q || !q->head) {
+		return true;
+	}
+	return false;
+}
 
 bool queue_enqueue(queue *q, double data);
 double queue_dequeue(queue *q);
