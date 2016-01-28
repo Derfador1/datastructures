@@ -31,5 +31,24 @@ bool queue_is_empty(queue *q)
 	return false;
 }
 
-bool queue_enqueue(queue *q, double data);
+bool queue_enqueue(queue *q, double data)
+{
+	if(!q) {
+		return false;
+	}
+	struct llist *new_tail = ll_create(data);
+	if(!new_tail) {
+		return false;
+	}
+
+	if(q->tail) {
+		q->tail->next = new_tail;
+	} else {
+		q->head = new_tail;
+	}
+
+	q->tail = new_tail;
+	return true;
+}
+
 double queue_dequeue(queue *q);
