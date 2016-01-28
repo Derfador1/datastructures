@@ -2,7 +2,9 @@
 #ifndef QUEUE_H
  #define QUEUE_H
 
+#include <stdbool.h>
 
+#include "double_llist.h"
 typedef struct {
 	struct llist *head;
 	struct llist *tail;

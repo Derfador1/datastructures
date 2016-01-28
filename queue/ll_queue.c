@@ -1,9 +1,11 @@
 
 #include "queue.h"
 
+#include <stdlib.h>
+
 queue *queue_create(void)
 {
-	queue *q = malloc(*q);
+	queue *q = malloc(sizeof(*q));
 	if(!q) {
 		return NULL;
 	}
