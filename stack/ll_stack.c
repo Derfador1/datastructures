@@ -31,18 +31,19 @@ bool stack_is_empty(stack *s)
 	return false;
 }
 
-void stack_push(stack *s, double data)
+bool stack_push(stack *s, double data)
 {
 	if(!s) {
-		return;
+		return false;
 	}
 
 	struct llist *new_head = ll_create(data);
 	if(!new_head) {
-		return;
+		return false;
 	}
 	new_head->next = s->head;
 	s->head = new_head;
+	return true;
 }
 
 double stack_pop(stack *s)

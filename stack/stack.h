@@ -20,13 +20,13 @@ typedef struct {
 	struct llist *head;
 } stack;
 
-#endif 
+#endif
 
 stack *stack_create(void);
 void stack_destroy(stack *s);
 
 bool stack_is_empty(stack *s);
-void stack_push(stack *s, double data);
+bool stack_push(stack *s, double data);
 double stack_pop(stack *s);
 
 #endif
