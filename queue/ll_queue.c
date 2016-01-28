@@ -51,4 +51,22 @@ bool queue_enqueue(queue *q, double data)
 	return true;
 }
 
-double queue_dequeue(queue *q);
+double queue_dequeue(queue *q)
+{
+	if(queue_is_empty(q)) {
+		return 0;
+	}
+
+	double value = q->head->data;
+	struct llist *tmp = q->head;
+
+	q->head = tmp->next;
+	tmp->next = NULL;
+	ll_destroy(tmp);
+
+	if(!q->head) {
+		q->tail = NULL;
+	}
+
+	return value;
+}
