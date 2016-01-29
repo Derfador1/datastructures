@@ -1,6 +1,8 @@
 
 #include "tree.h"
 
+#include <stdlib.h>
+
 struct tree *tree_create(double data)
 {
 	struct tree *t = malloc(sizeof(*t));
@@ -24,15 +26,40 @@ void tree_destroy(struct tree *t)
 	free(t);
 }
 
-
-void tree_iterate(struct tree *t, void (*func)(double))
+void tree_preorder(struct tree *t,
+		void (*func)(double))
 {
 	if(!t) {
 		return;
 	}
 
-	tree_iterate(t->left, func);
-	tree_iterate(t->right, func);
+	func(t->data);
+	tree_preorder(t->left, func);
+	tree_preorder(t->right, func);
+}
+
+void tree_inorder(struct tree *t,
+		void (*func)(double))
+{
+	if(!t) {
+		return;
+	}
+
+	tree_inorder(t->left, func);
+	func(t->data);
+	tree_inorder(t->right, func);
+}
+
+
+void tree_postorder(struct tree *t,
+		void (*func)(double))
+{
+	if(!t) {
+		return;
+	}
+
+	tree_postorder(t->left, func);
+	tree_postorder(t->right, func);
 	func(t->data);
 }
 
