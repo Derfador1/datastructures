@@ -1,6 +1,7 @@
 
 #include "queue.h"
 
+#include <math.h>
 #include <stdlib.h>
 
 queue *queue_create(void)
@@ -18,7 +19,7 @@ queue *queue_create(void)
 void queue_destroy(queue *q)
 {
 	if(!q) {
-		return;	
+		return;
 	}
 	ll_destroy(q->head);
 
@@ -71,4 +72,41 @@ double queue_dequeue(queue *q)
 	}
 
 	return value;
+}
+
+void queue_flatten(queue **q)
+{
+	if(!q || queue_is_empty(*q)) {
+		return;
+	}
+
+	queue *pmt = *q;
+	queue *tmp = queue_create();
+
+	size_t n = 0;
+	double value;
+	size_t queue_size = 1;
+
+	while(n < queue_size) {
+		queue_size = 0;
+
+		do {
+			value = queue_dequeue(pmt);
+			queue_enqueue(tmp, value);
+		} while(queue_size++ < n);
+		++n;
+
+		while(!queue_is_empty(pmt)) {
+			double check = queue_dequeue(pmt);
+			if(fabs(value - check) > .001) {
+				queue_enqueue(tmp, check);
+				++queue_size;
+			}
+		}
+		queue *swap = pmt;
+		pmt = tmp;
+		tmp = swap;
+	}
+	queue_destroy(tmp);
+	*q = pmt;
 }
