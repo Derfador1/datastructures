@@ -1,6 +1,7 @@
 
 #include "bst.h"
 
+#include <math.h>
 #include <stdlib.h>
 
 bst *bst_create(void)
@@ -61,7 +62,7 @@ static bool tree_insert(struct tree **t, double data)
 		return tree_insert(&node->left, data);
 	}
 }
-	
+
 bool bst_insert(bst *b, double data)
 {
 	if(!b) {
@@ -118,7 +119,7 @@ static void tree_remove(struct tree **t, double data)
 		tree_remove(&node->left, data);
 	}
 }
-	
+
 void bst_remove(bst *b, double data)
 {
 	if(!b) {
