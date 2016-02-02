@@ -1,0 +1,168 @@
+<link href="../exercise.css" rel="stylesheet" type="text/css"/>
+
+<section class="module">
+	<h1>Trees</h1>
+
+	<article class="exercise">
+		<p>Given the following implementation of <code>struct tree</code>:</p>
+
+		<pre><code lang="c">struct tree {
+	double data;
+	struct tree *left;
+	struct tree *right;
+};</code></pre>
+
+		<p>Implement the following functions:</p>
+
+		<dl>
+			<dt><code>size_t tree_height(struct tree *t)</code></dt>
+			<dd>Returns the maximum height of the tree</dd>
+
+			<dt><code>size_t tree_size(struct tree *t)</code></dt>
+			<dd>Returns the number of items in the tree</dd>
+
+			<dt><code>void tree_print(struct tree *t)</code></dt>
+			<dd>Prints the tree.  This is much harder than it sounds.</dd>
+
+			<dt><code>bool tree_is_complete(struct tree *t)</code></dt>
+			<dd>Indicates whether or not the tree is complete (all nodes have either 0 or 2 children)</dd>
+
+			<dt><code>void tree_level_traversal(struct tree *t, void (*func)(double))</code></dt>
+			<dd>Traverses the tree level by level, starting at the root node, calling the
+			function <code>func</code> on each data member.</dd>
+
+			<dt><code>bool tree_is_nearly_complete(struct tree *t)</code></dt>
+			<dd>Indicates whether or not the tree is nearly complete (the only nodes with exactly
+			0 or 1 children are at the bottom of the tree)</dd>
+
+			<dt><code>struct tree *tree_mirror(struct tree *t)</code></dt>
+			<dd>Returns a newly-<code>malloc</code>ed <code>struct tree</code> that is the
+			mirror image of the given tree, flipped about the root node.</dd>
+		</dl>
+
+		<p><strong>Challenge</strong>: Determine the Big-O complexity of each function.</p>
+
+		<p><strong>Challenge</strong>: Implement versions where the data is of type <code>void *</code>.</p>
+	</article>
+
+</section>
+
+<section class="module">
+	<h1>Binary Search Tree</h1>
+
+	<article class="exercise">
+		<p>Given <code>typedef bst</code> has the following implementation:</p>
+
+		<pre><code lang="c">struct tree {
+	double data;
+	struct tree *left;
+	struct tree *right;
+};
+
+typedef struct {
+	struct tree *root;
+} bst;</code></pre>
+
+		<p>Implement the following methods:</p>
+
+		<dl>
+			<dt><code>double bst_get_min(bst *t)</code></dt>
+			<dd>Returns the least item</dd>
+
+			<dt><code>double bst_get_max(bst *t)</code></dt>
+			<dd>Returns the greatest item</dd>
+
+			<dt><code>double bst_get(bst *t, size_t pos)</code></dt>
+			<dd>Returns the Nth largest item</dd>
+
+			<dt><code>void bst_flatten(bst *t)</code></dt>
+			<dd>Removes any duplicate items from the tree, retaining only the one
+			occurrence of each: (1 1 2 3 3 3 3 5 6) becomes (1 2 3 5 6).</dd>
+
+			<dt><code>double *bst_get_range(bst *t, size_t low, size_t high, size_t *count)</code></dt>
+			<dd>Returns a newly-<code>malloc</code>ed array of doubles that are in the tree,
+			that are between <code>low</code> and <code>high</code>.  Return the number of
+			items in the array via <code>count</code></dd>
+
+		</dl>
+
+		<p><strong>Challenge</strong>: Determine the Big-O complexity of each function.</p>
+
+		<p><strong>Challenge</strong>: Implement versions where the data is of type <code>void *</code>.</p>
+	</article>
+
+	<article class="exercise">
+		<p>Implement the generic tree functions from the Tree module for
+		<code>typedef bst</code>.  Can any be improved in terms of performance?</p>
+	</article>
+
+
+<section class="module" style="page-break-before: always">
+	<h1>AVL Trees</h1>
+
+	<article class="exercise">
+		<p>Given the following implementation of <code>typedef avl</code>:</p>
+
+		<pre><code lang="c">struct tree {
+	int8_t balance;
+	double data;
+	struct tree *left, *right;
+};
+
+typedef struct {
+	struct tree *root;
+} avl;
+
+</code></pre>
+
+	</article>
+
+	<!--
+	<article class="exercise">
+		<p>Given the following implementation of <code>typedef avl</code>:</p>
+
+		<pre><code lang="c">typedef struct {
+	size_t size;
+	size_t capacity;
+	double *data;
+} avl;</code></pre>
+
+		<p>The root is stored at <code>data[0]</code>, and for every node <var>N</var>,
+		its parent is at &lfloor;<sup>N</sup>&frasl;2&rfloor;, its left child is at
+		2N and its right child at 2N + 1.</p>
+
+		<p>Implement the following functions:</p>
+
+		<dl>
+			<dt><code>avl *avl_create(void)</code></dt>
+			<dt><code>void avl_destroy(avl *t)</code></dt>
+			<dt><code>void avl_insert(avl *t, double data)</code></dt>
+			<dt><code>void avl_remove(avl *t, double data)</code></dt>
+			<dt><code>bool avl_find(avl *t, double data, double delta)</code></dt>
+			<dt><code>void avl_iterate(avl *t, void (*func)(double data))</code></dt>
+		</dl>
+
+		<p><strong>Challenge</strong>: Determine the Big-O complexity of each function.</p>
+
+	</article>
+	-->
+
+	<article class="exercise">
+		<p>Suppose that an vendor claims to have an AVL library that supports trees
+		of up to height 256.  Why are you laughing at them so hard? Give your
+		answer as a fraction.</p>
+	</article>
+
+
+	<article class="exercise">
+		<p>Implement the generic tree functions from the Tree module for either
+		<code>typedef avl</code>.  Can any be improved in terms of performance?</p>
+	</article>
+
+	<article class="exercise">
+		<p>Implement the generic BST functions from the Tree module for either
+		<code>typedef avl</code>.  Can any be improved in terms of performance?</p>
+	</article>
+</section>
+
+
