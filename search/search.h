@@ -14,4 +14,7 @@ bool binary_search(const void *needle,
 		int (*cmp)(const void *, const void *)
 		);
 
+unsigned int find_max(const unsigned int *arr,
+		const size_t sz);
+
 #endif

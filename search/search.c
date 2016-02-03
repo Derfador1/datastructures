@@ -33,3 +33,21 @@ bool cbinary_search(const char needle,
 		arr[sz-1] == needle;
 }
 
+unsigned int find_max(const unsigned int *arr,
+		const size_t sz)
+{
+	if(!arr) {
+		return 0;
+	}
+
+	unsigned int largest = 0;
+
+	for(size_t n = 0; n < sz; ++n) {
+		if(arr[n] > largest) {
+			largest = arr[n];
+		}
+	}
+
+	return largest;
+}
+
