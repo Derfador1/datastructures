@@ -8,7 +8,7 @@ driver: driver.o search.o
 .PHONY: clean debug
 
 clean:
-	-rm *.o
+	-rm *.o driver
 
 debug: CFLAGS+=-g
 debug: driver
