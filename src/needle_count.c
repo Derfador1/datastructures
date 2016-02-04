@@ -52,10 +52,14 @@ size_t needle_count(const char *needle, const char *arr[], size_t n)
 		} else if(0 == strcmp(needle, arr[low + 1])) {
 			start = low + 1;
 		}
-		// TODO: What happens if the needle doesn't exist?
 	} else {
-		printf("high(%zu), low(%zu)\n", high, low);
+		if(0 == strcmp(needle, arr[low])) {
+			start = low;
+		} else if(0 == strcmp(needle, arr[high])) {
+			start = high;
+		}
 	}
+	// TODO: What happens if the needle doesn't exist?
 
 
 
@@ -81,14 +85,18 @@ size_t needle_count(const char *needle, const char *arr[], size_t n)
 	// on first instance or just to the left of the first
 	// instance
 	if(low == high) {
-		if(0 == strcmp(needle, arr[low])) {
-			end = low;
-		} else if(0 == strcmp(needle, arr[low + 1])) {
-			end = low + 1;
+		if(0 == strcmp(needle, arr[high])) {
+			end = high;
+		} else if(0 == strcmp(needle, arr[high - 1])) {
+			end = high - 1;
 		}
 		// TODO: What happens if the needle doesn't exist?
 	} else {
-		printf("end: high(%zu), low(%zu)\n", high, low);
+		if(0 == strcmp(needle, arr[low])) {
+			end = low;
+		} else if(0 == strcmp(needle, arr[high])) {
+			end = high;
+		}
 	}
 
 
@@ -98,6 +106,7 @@ size_t needle_count(const char *needle, const char *arr[], size_t n)
 int main(void)
 {
 
+	printf("There are %zu lights\n", data_size());
 	printf("Happy  %zu (20)\n", needle_count("Happy", data, data_size()));
 	printf("Sleepy %zu (1)\n", needle_count("Sleepy", data, data_size()));
 	printf("Tyrion %zu (0)\n", needle_count("Tyrion", data, data_size()));
