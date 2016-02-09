@@ -10,26 +10,33 @@ static const size_t DEFAULT_SIZE = 10;
 
 static void h_llist_destroy(struct h_llist *list);
 static struct h_llist *h_llist_create(const char *key, double value);
-static size_t hashish(const char *key, size_t len);
+static size_t hashish(const char *key, size_t capacity);
+static void hash_recalculate(hash *h);
 
-hash *hash_create(void)
+hash *__hash_create(size_t capacity)
 {
 	hash *h = malloc(sizeof(*h));
 	if(!h) {
 		return NULL;
 	}
 
-	h->data = calloc(DEFAULT_SIZE,
+	h->data = calloc(capacity,
 			sizeof(*h->data));
 	if(!h->data) {
 		free(h);
 		return NULL;
 	}
 
-	h->len = DEFAULT_SIZE;
-
+	h->capacity = capacity;
+	h->item_count = 0;
 	return h;
 }
+
+hash *hash_create(void)
+{
+	return __hash_create(DEFAULT_SIZE);
+}
+
 
 static void h_llist_destroy(struct h_llist *list)
 {
@@ -44,7 +51,7 @@ static void h_llist_destroy(struct h_llist *list)
 void hash_destroy(hash *h)
 {
 	if(h) {
-		for(size_t n=0; n < h->len; ++n) {
+		for(size_t n=0; n < h->capacity; ++n) {
 			h_llist_destroy(h->data[n]);
 		}
 
@@ -72,9 +79,9 @@ static struct h_llist *h_llist_create(const char *key, double value)
 }
 
 static size_t hashish(const char *key,
-		size_t len)
+		size_t capacity)
 {
-	return key[0] % len;
+	return key[0] % capacity;
 }
 
 void hash_insert(hash *h,
@@ -84,7 +91,9 @@ void hash_insert(hash *h,
 		return;
 	}
 
-	size_t idx = hashish(key, h->len);
+	hash_recalculate(h);
+
+	size_t idx = hashish(key, h->capacity);
 
 	struct h_llist *new = h_llist_create(key, value);
 	if(!new) {
@@ -94,6 +103,7 @@ void hash_insert(hash *h,
 	// Add new value to head of linked list
 	new->next = h->data[idx];
 	h->data[idx] = new;
+	h->item_count += 1;
 }
 
 double hash_fetch(hash *h, const char *key)
@@ -102,7 +112,7 @@ double hash_fetch(hash *h, const char *key)
 		return 0;
 	}
 
-	size_t idx = hashish(key, h->len);
+	size_t idx = hashish(key, h->capacity);
 	struct h_llist *tmp = h->data[idx];
 
 	while(tmp) {
@@ -114,5 +124,43 @@ double hash_fetch(hash *h, const char *key)
 	}
 
 	return 0;
+}
+
+static void hash_recalculate(hash *h)
+{
+	if(!h) {
+		return;
+	}
+
+	if(h->item_count <
+			0.70 * h->capacity) {
+		return;
+	}
+
+	hash *cpy =
+		__hash_create(h->capacity * 2);
+	if(!cpy) {
+		return;
+	}
+
+	for(size_t n=0; n < h->capacity; ++n) {
+		struct h_llist *tmp = h->data[n];
+		while(tmp) {
+			hash_insert(cpy,
+					tmp->key, tmp->value);
+			tmp = tmp->next;
+		}
+	}
+
+	for(size_t n=0; n < h->capacity; ++n) {
+		h_llist_destroy(h->data[n]);
+	}
+	free(h->data);
+
+	h->capacity = cpy->capacity;
+	h->item_count = cpy->item_count;
+	h->data = cpy->data;
+
+	free(cpy);
 }
 

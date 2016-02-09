@@ -11,7 +11,8 @@ struct h_llist {
 };
 
 typedef struct {
-	size_t len;
+	size_t item_count;
+	size_t capacity;
 	struct h_llist **data;
 } hash;
 
