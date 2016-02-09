@@ -2,6 +2,8 @@
 #ifndef HASH_H
  #define HASH_H
 
+#include <stdlib.h>
+
 typedef struct {
 	size_t len;
 	double *data;
