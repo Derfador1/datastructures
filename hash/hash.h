@@ -4,9 +4,15 @@
 
 #include <stdlib.h>
 
+struct h_llist {
+	char *key;
+	double value;
+	struct h_llist *next;
+};
+
 typedef struct {
 	size_t len;
-	double *data;
+	struct h_llist **data;
 } hash;
 
 hash *hash_create(void);
