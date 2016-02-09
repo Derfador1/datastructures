@@ -21,20 +21,14 @@ int main(void)
 	hash_insert(hashy, "jamiroquai", 2900);
 	hash_insert(hashy, "killua", 2080);
 
+	hash_insert(hashy, "follensbee", 56);
+	hash_insert(hashy, "follensbee", 170);
+	hash_insert(hashy, "follensbee", 64);
 
-	printf("able: %lf\n",
-			hash_fetch(hashy, "able"));
-	printf("baker: %lf\n",
-			hash_fetch(hashy, "baker"));
-	printf("charlie: %lf\n",
-			hash_fetch(hashy, "charlie"));
-	printf("(neato): %lf\n",
-			hash_fetch(hashy, "(neato)"));
-	printf("chef: %lf\n",
-			hash_fetch(hashy, "chef"));
+	printf("follensbee: %lf\n",
+			hash_fetch(hashy, "follensbee"));
 
-	printf("capacity: %zu\n", hashy->capacity);
-
+	printf("size: %zu\n", hashy->item_count);
 
 	hash_destroy(hashy);
 }

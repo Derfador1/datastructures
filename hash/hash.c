@@ -95,6 +95,16 @@ void hash_insert(hash *h,
 
 	size_t idx = hashish(key, h->capacity);
 
+	struct h_llist *tmp = h->data[idx];
+
+	while(tmp) {
+		if(strcmp(tmp->key, key) == 0) {
+			tmp->value = value;
+			return;
+		}
+		tmp = tmp->next;
+	}
+
 	struct h_llist *new = h_llist_create(key, value);
 	if(!new) {
 		return;
