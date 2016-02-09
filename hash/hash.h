@@ -12,7 +12,7 @@ typedef struct {
 hash *hash_create(void);
 void hash_destroy(hash *h);
 
-void hash_insert(hash *h, char *key, double value);
-double hash_fetch(hash *h, char *key);
+void hash_insert(hash *h, const char *key, double value);
+double hash_fetch(hash *h, const char *key);
 
 #endif
