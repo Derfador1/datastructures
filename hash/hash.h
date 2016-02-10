@@ -22,4 +22,7 @@ void hash_destroy(hash *h);
 void hash_insert(hash *h, const char *key, double value);
 double hash_fetch(hash *h, const char *key);
 
+void hash_traverse(hash *h,
+		void (*func)(const char *, double));
+
 #endif

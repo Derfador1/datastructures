@@ -190,3 +190,15 @@ static void hash_recalculate(hash *h)
 	free(cpy);
 }
 
+void hash_traverse(hash *h,
+		void (*func)(const char *, double))
+{
+	for(size_t n = 0; n < h->capacity; ++n) {
+		struct h_llist *tmp = h->data[n];
+		while(tmp) {
+			func(tmp->key, tmp->value);
+			tmp = tmp->next;
+		}
+	}
+}
+
