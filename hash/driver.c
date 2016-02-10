@@ -25,6 +25,14 @@ int main(void)
 	hash_insert(hashy, "follensbee", 170);
 	hash_insert(hashy, "follensbee", 64);
 
+	printf("hillock: %lf\n",
+			hash_fetch(hashy, "hillock"));
+	printf("graham: %lf\n",
+			hash_fetch(hashy, "graham"));
+	printf("eggbert: %lf\n",
+			hash_fetch(hashy, "eggbert"));
+	printf("dickerson: %lf\n",
+			hash_fetch(hashy, "dickerson"));
 	printf("follensbee: %lf\n",
 			hash_fetch(hashy, "follensbee"));
 
