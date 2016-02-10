@@ -2,6 +2,7 @@
 #define _BSD_SOURCE
 #include "hash.h"
 
+#include <stdint.h>
 #include <string.h>
 
 // static so that it will only be seen
@@ -12,6 +13,18 @@ static void h_llist_destroy(struct h_llist *list);
 static struct h_llist *h_llist_create(const char *key, double value);
 static size_t hashish(const char *key, size_t capacity);
 static void hash_recalculate(hash *h);
+
+uint64_t wang_hash(uint64_t key)
+{
+	key = (~key) + (key << 21); // key = (key << 21) - key - 1;
+	key = key ^ (key >> 24);
+	key = (key + (key << 3)) + (key << 8); // key * 265
+	key = key ^ (key >> 14);
+	key = (key + (key << 2)) + (key << 4); // key * 21
+	key = key ^ (key >> 28);
+	key = key + (key << 31);
+	return key;
+}
 
 hash *__hash_create(size_t capacity)
 {
@@ -81,7 +94,10 @@ static struct h_llist *h_llist_create(const char *key, double value)
 static size_t hashish(const char *key,
 		size_t capacity)
 {
-	return key[0] % capacity;
+	uint64_t buf = 0;
+	strncpy((char *)(&buf), key, sizeof(buf));
+
+	return wang_hash(buf) % capacity;
 }
 
 void hash_insert(hash *h,
