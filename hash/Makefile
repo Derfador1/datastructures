@@ -5,6 +5,8 @@ CFLAGS+=-Wwrite-strings -Wstack-usage=1024 -Wfloat-equal -Waggregate-return -Win
 
 driver: driver.o hash.o
 
+wc: wc.o hash.o
+
 .PHONY: clean debug
 
 clean:
