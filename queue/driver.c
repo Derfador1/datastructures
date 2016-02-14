@@ -33,5 +33,5 @@ int main(void)
 		printf("%p\n", queue_dequeue(queuey));
 	}
 
-	queue_destroy(queuey);
+	queue_disassemble(queuey);
 }
