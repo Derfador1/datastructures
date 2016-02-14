@@ -5,11 +5,13 @@ CFLAGS+=-Wwrite-strings -Wstack-usage=1024 -Wfloat-equal -Waggregate-return -Win
 
 CFLAGS+=-I../llist
 
-LDLIBS+=-lm
+driver: driver.o queue.o
 
-# The double_llist.o is cheating and should be punished
-# It really should be a path include parameter to LDFLAGS
-driver: driver.o ll_queue.o ../llist/double_llist.o
+queue.o: ll_queue.o ../llist/llist.o
+	$(LD) -r $^ -o $@
+
+#queue.o: array_queue.o
+#	$(LD) -r $^ -o $@
 
 .PHONY: clean debug
 
