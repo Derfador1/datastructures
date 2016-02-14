@@ -15,3 +15,4 @@ clean:
 	-rm *.o
 
 debug: CFLAGS+=-g
+debug: driver
