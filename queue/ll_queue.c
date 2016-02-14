@@ -34,7 +34,7 @@ bool queue_is_empty(queue *q)
 	return false;
 }
 
-bool queue_enqueue(queue *q, double data)
+bool queue_enqueue(queue *q, void *data)
 {
 	if(!q) {
 		return false;
@@ -54,13 +54,13 @@ bool queue_enqueue(queue *q, double data)
 	return true;
 }
 
-double queue_dequeue(queue *q)
+void *queue_dequeue(queue *q)
 {
 	if(queue_is_empty(q)) {
 		return 0;
 	}
 
-	double value = q->head->data;
+	void *value = q->head->data;
 	struct llist *tmp = q->head;
 
 	q->head = tmp->next;
@@ -84,7 +84,7 @@ void queue_flatten(queue **q)
 	queue *tmp = queue_create();
 
 	size_t n = 0;
-	double value;
+	void *value;
 	size_t queue_size = 1;
 
 	while(n < queue_size) {
@@ -97,8 +97,8 @@ void queue_flatten(queue **q)
 		++n;
 
 		while(!queue_is_empty(pmt)) {
-			double check = queue_dequeue(pmt);
-			if(fabs(value - check) > .001) {
+			void *check = queue_dequeue(pmt);
+			if(value == check) {
 				queue_enqueue(tmp, check);
 				++queue_size;
 			}
