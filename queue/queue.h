@@ -26,6 +26,7 @@ typedef struct {
 #endif
 
 queue *queue_create(void);
+void queue_disassemble(queue *q);
 void queue_destroy(queue *q);
 
 bool queue_is_empty(queue *q);

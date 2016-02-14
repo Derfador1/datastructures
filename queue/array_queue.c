@@ -33,7 +33,7 @@ queue *queue_create(void)
 	return q;
 }
 
-void queue_destroy(queue *q)
+void queue_disassemble(queue *q)
 {
 	if(!q) {
 		return;
@@ -41,6 +41,22 @@ void queue_destroy(queue *q)
 
 	free(q->data);
 	free(q);
+}
+
+void queue_destroy(queue *q)
+{
+	if(!q) {
+		return;
+	}
+
+	while(!queue_is_empty(q)) {
+		void *value = queue_dequeue(q);
+		if(value) {
+			free(value);
+		}
+	}
+
+	queue_disassemble(q);
 }
 
 bool queue_is_empty(queue *q)
@@ -72,7 +88,7 @@ bool queue_enqueue(queue *q, void *data)
 			return false;
 		}
 	}
-	
+
 	q->data[q->tail++] = data;
 	q->tail %= q->capacity;
 

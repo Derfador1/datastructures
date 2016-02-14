@@ -10,8 +10,7 @@ queue *queue_create(void)
 	if(!q) {
 		return NULL;
 	}
-	q->head = NULL;
-	q->tail = NULL;
+	q->head = q->tail = NULL;
 
 	return q;
 }
@@ -22,6 +21,16 @@ void queue_destroy(queue *q)
 		return;
 	}
 	ll_destroy(q->head);
+
+	free(q);
+}
+
+void queue_disassemble(queue *q)
+{
+	if(!q) {
+		return;
+	}
+	ll_disassemble(q->head);
 
 	free(q);
 }
@@ -57,15 +66,15 @@ bool queue_enqueue(queue *q, void *data)
 void *queue_dequeue(queue *q)
 {
 	if(queue_is_empty(q)) {
-		return 0;
+		return NULL;
 	}
 
 	void *value = q->head->data;
 	struct llist *tmp = q->head;
 
-	q->head = tmp->next;
+	q->head = q->head->next;
 	tmp->next = NULL;
-	ll_destroy(tmp);
+	ll_disassemble(tmp);
 
 	if(!q->head) {
 		q->tail = NULL;
