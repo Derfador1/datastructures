@@ -1,7 +1,7 @@
 
 #include <stdio.h>
 
-#include "hash.h"
+#include "double_hash.h"
 
 int main(void)
 {

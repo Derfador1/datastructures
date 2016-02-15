@@ -1,7 +1,7 @@
 
 #include <stdio.h>
 
-#include "hash.h"
+#include "double_hash.h"
 
 void print_pair(const char *key, double value)
 {
@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
 
 	hash_traverse(words,
 			print_pair);
-	
+
 
 	hash_destroy(words);
 	fclose(fp);

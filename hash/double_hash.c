@@ -1,6 +1,6 @@
 
 #define _BSD_SOURCE
-#include "hash.h"
+#include "double_hash.h"
 
 #include <stdint.h>
 #include <string.h>
