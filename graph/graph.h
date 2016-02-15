@@ -3,22 +3,7 @@
 
 #include <stdbool.h>
 
-struct edge {
-	int weight;
-	struct node *to;
-	struct edge *next;
-};
-
-struct node {
-	void *data;
-	struct edge *edges;
-	struct node *next;
-};
-
-typedef struct {
-	struct node *nodes;
-} graph;
-
+typedef struct _adjllist_graph graph;
 
 graph *graph_create(void);
 void graph_disassemble(graph *g);

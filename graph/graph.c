@@ -3,6 +3,22 @@
 
 #include <stdlib.h>
 
+struct edge {
+	int weight;
+	struct node *to;
+	struct edge *next;
+};
+
+struct node {
+	void *data;
+	struct edge *edges;
+	struct node *next;
+};
+
+struct _adjllist_graph {
+	struct node *nodes;
+};
+
 void __graph_remove_edges_from_node(struct node *v);
 
 graph *graph_create(void)
