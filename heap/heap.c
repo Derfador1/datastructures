@@ -73,7 +73,7 @@ bool heap_add(heap *h, void *value)
 		}
 	}
 
-	while(n > 0 && h->cmp(value, h->data[PARENT(n)]) > 0) {
+	while(n > 0 && h->cmp(value, h->data[PARENT(n)]) < 0) {
 		h->data[n] = h->data[PARENT(n)];
 		n = PARENT(n);
 		h->data[n] = value;
@@ -84,7 +84,7 @@ bool heap_add(heap *h, void *value)
 	return true;
 }
 
-void *heap_peek_max(heap *h)
+void *heap_peek_min(heap *h)
 {
 	if(!h || h->size == 0) {
 		return NULL;
@@ -93,7 +93,7 @@ void *heap_peek_max(heap *h)
 	return h->data[0];
 }
 
-void *heap_remove_max(heap *h)
+void *heap_remove_min(heap *h)
 {
 	if(!h || h->size == 0) {
 		return NULL;
@@ -126,10 +126,10 @@ static void __heapify(heap *h, size_t n)
 		size_t left = LEFT(n);
 		size_t right = RIGHT(n);
 
-		if(h->cmp(h->data[best], h->data[left]) < 0) {
+		if(h->cmp(h->data[left], h->data[best]) < 0) {
 			best = left;
 		}
-		if(right < h->size && h->cmp(h->data[best], h->data[right]) < 0) {
+		if(right < h->size && h->cmp(h->data[right], h->data[best]) < 0) {
 			best = right;
 		}
 

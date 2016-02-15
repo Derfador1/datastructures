@@ -2,7 +2,7 @@
 #ifndef HEAP_H
  #define HEAP_H
 
-// Max heap (min heap just requires the inverse of the cmp function)
+// Min heap (max heap just requires the inverse of the cmp function)
 
 #include <stdbool.h>
 #include <stdlib.h>
@@ -19,7 +19,7 @@ void heap_disassemble(heap *h);
 void heap_destroy(heap *h);
 
 bool heap_add(heap *h, void *value);
-void *heap_peek_max(heap *h);
-void *heap_remove_max(heap *h);
+void *heap_peek_min(heap *h);
+void *heap_remove_min(heap *h);
 
 #endif
