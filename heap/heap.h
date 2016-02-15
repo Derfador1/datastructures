@@ -18,6 +18,9 @@ heap *heap_create(int (*cmp)(const void *, const void *));
 void heap_disassemble(heap *h);
 void heap_destroy(heap *h);
 
+bool heap_is_empty(heap *h);
+size_t heap_size(heap *h);
+
 bool heap_add(heap *h, void *value);
 void *heap_peek_min(heap *h);
 void *heap_remove_min(heap *h);

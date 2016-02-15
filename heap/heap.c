@@ -58,6 +58,20 @@ void heap_destroy(heap *h)
 	free(h);
 }
 
+bool heap_is_empty(heap *h)
+{
+	return !(h && h->size > 0);
+}
+
+size_t heap_size(heap *h)
+{
+	if(!h) {
+		return 0;
+	}
+
+	return h->size;
+}
+
 bool heap_add(heap *h, void *value)
 {
 	if(!h) {
