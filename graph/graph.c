@@ -293,7 +293,8 @@ struct llist *graph_adjacent_to(const graph *g, const void *data)
 			struct llist *head = NULL;
 			struct edge *adj = curr->edges;
 			while(adj) {
-				ll_add(&head, adj->to);
+				ll_add(&head, adj->to->data);
+				adj = adj->next;
 			}
 
 			return head;
