@@ -30,7 +30,7 @@ struct llist *graph_path(const graph *g, const void *from, const void *to)
 				queue_enqueue(to_process, check->data);
 				if(check->data == to) {
 					ll_disassemble(adjacencies);
-					goto DONE;
+					goto FOUND;
 				}
 			}
 
@@ -40,7 +40,11 @@ struct llist *graph_path(const graph *g, const void *from, const void *to)
 		ll_disassemble(adjacencies);
 	}
 
-DONE:
+	queue_disassemble(to_process);
+	hash_disassemble(visited);
+	return NULL;
+
+FOUND:
 	queue_disassemble(to_process);
 
 	struct llist *path = ll_create(to);
@@ -62,18 +66,21 @@ int main(void)
 
 	{
 		struct llist *path = graph_path(bigun, "A", "L");
+		printf("From A to L: ");
 		print_path(path);
 		ll_disassemble(path);
 	}
 
 	{
 		struct llist *path = graph_path(bigun, "K", "L");
+		printf("From K to L: ");
 		print_path(path);
 		ll_disassemble(path);
 	}
 
 	{
 		struct llist *path = graph_path(bigun, "D", "A");
+		printf("From D to A: ");
 		print_path(path);
 		ll_disassemble(path);
 	}
@@ -110,6 +117,7 @@ graph *big_graph(void)
 	graph_add_edge(g, "E", "D", 6);
 	graph_add_edge(g, "E", "F", 15);
 	graph_add_edge(g, "E", "H", 7);
+	graph_add_edge(g, "E", "K", 9);
 	graph_add_edge(g, "E", "B", 11);
 	graph_add_edge(g, "F", "H", 8);
 	graph_add_edge(g, "F", "C", 7);
