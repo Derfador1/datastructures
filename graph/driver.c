@@ -4,6 +4,7 @@
 
 #include "llist.h"
 #include "hash.h"
+#include "queue.h"
 #include "graph.h"
 
 void print_item(const void *data, bool is_node)
@@ -15,15 +16,46 @@ void print_item(const void *data, bool is_node)
 	}
 }
 
-struct llist *graph_path(const graph *g, const void *from, const void *to)
+struct llist *graph_path(const graph *g, void *from, void *to)
 {
 	hash *visited = hash_create();
+	queue *to_process = queue_create();
 	
 	hash_insert(visited, from, NULL); 
+	queue_enqueue(to_process, from);
+
+	while(!queue_is_empty(to_process)) {
+		void *curr = queue_dequeue(to_process);
+
+		struct llist *adjacencies = graph_adjacent_to(g, curr);
+		struct llist *check = adjacencies;
+		while(check) {
+			if(!hash_exists(visited, check->data)) {
+				hash_insert(visited, check->data, curr);
+				queue_enqueue(to_process, check->data);
+				if(check->data == to) {
+					ll_disassemble(adjacencies);
+					goto DONE;
+				}
+			}
+
+			check = check->next;
+		}
+
+		ll_disassemble(adjacencies);
+	}
+
+DONE:
+	queue_disassemble(to_process);
+
+	struct llist *path = ll_create(to);
+	while(hash_fetch(visited, path->data)) {
+		ll_add(&path, hash_fetch(visited, path->data));
+	}
 
 	hash_disassemble(visited);
 
-	return NULL;
+	return path;
 }
 
 int main(void)
