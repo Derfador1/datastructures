@@ -121,7 +121,7 @@ FOUND:
 	heap_destroy(to_process);
 
 	struct llist *path = ll_create(to);
-	while(hash_fetch(visited, path->data)) {
+	while(((struct visited_node *)hash_fetch(visited, path->data))->prev) {
 		ll_add(&path,
 				((struct visited_node *)hash_fetch(visited, path->data))->prev);
 	}
