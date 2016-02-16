@@ -1,9 +1,11 @@
 
 #include <stdbool.h>
 #include <stdio.h>
+#include <inttypes.h>
 
 #include "llist.h"
 #include "hash.h"
+#include "heap.h"
 #include "queue.h"
 #include "graph.h"
 
@@ -15,6 +17,22 @@ struct pqueue_node {
 	const void *data;
 	int priority;
 };
+
+int pq_compare(const void *a, const void *b)
+{
+	if(!a) {
+		return -(intptr_t)b;
+	}
+	if(!b) {
+		return (intptr_t)a;
+	}
+
+	struct pqueue_node *pqa, *pqb;
+	pqa = (struct pqueue_node *)a;
+	pqb = (struct pqueue_node *)b;
+
+	return pqa->priority - pqb->priority;
+}
 
 struct pqueue_node *__make_node(const void *data, int priority)
 {
@@ -30,6 +48,12 @@ struct pqueue_node *__make_node(const void *data, int priority)
 
 struct llist *dijkstra_path(const graph *g, const void *from, const void *to)
 {
+	heap *to_process = heap_create(pq_compare);
+	struct pqueue_node *start =__make_node(from, 0);
+	heap_add(to_process, start);
+
+
+
 
 	return NULL;
 }
