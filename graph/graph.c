@@ -147,6 +147,24 @@ bool graph_add_edge(graph *g, const void *from, const void *to, int weight)
 	return true;
 }
 
+bool graph_has_node(graph *g, const void *data)
+{
+	if(!g) {
+		return false;
+	}
+
+	struct node *curr = g->nodes;
+	while(curr) {
+		if(curr->data == data) {
+			return true;
+		}
+
+		curr = curr->next;
+	}
+
+	return false;
+}
+
 bool graph_remove_node(graph *g, const void *data)
 {
 	if(!g) {

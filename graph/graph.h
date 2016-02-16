@@ -16,6 +16,8 @@ void graph_destroy(graph *g);
 bool graph_add_node(graph *g, const void *data);
 bool graph_add_edge(graph *g, const void *from, const void *to, int weight);
 
+bool graph_has_node(graph *g, const void *data);
+
 bool graph_remove_node(graph *g, const void *data);
 bool graph_remove_edge(graph *g, const void *from, const void *to);
 
