@@ -3,6 +3,7 @@
 #include <stdio.h>
 
 #include "llist.h"
+#include "hash.h"
 #include "graph.h"
 
 void print_item(const void *data, bool is_node)
@@ -16,7 +17,11 @@ void print_item(const void *data, bool is_node)
 
 struct llist *graph_path(const graph *g, const void *from, const void *to)
 {
-	return NULL;
+	hash *visited = hash_create();
+	
+	hash_insert(visited, from, NULL); 
+
+	hash_disassemble(visited);
 }
 
 int main(void)
