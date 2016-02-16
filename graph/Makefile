@@ -4,8 +4,10 @@ CFLAGS+=-Wall -Wextra -Wpedantic
 CFLAGS+=-Wwrite-strings -Wstack-usage=1024 -Wfloat-equal -Waggregate-return -Winline
 
 CFLAGS+=-I../llist
+LDFLAGS+=-L../llist
 
-driver: driver.o graph.o
+driver: driver.o graph.o ../llist/llist.o
+
 
 .PHONY: clean debug
 
