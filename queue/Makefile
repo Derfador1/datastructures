@@ -7,7 +7,7 @@ CFLAGS+=-I../llist
 
 driver: driver.o queue.o
 
-queue.o: ll_queue.o ../llist/llist.o
+queue.o: ll_queue.o
 	$(LD) -r $^ -o $@
 
 #queue.o: array_queue.o
