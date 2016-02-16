@@ -79,12 +79,13 @@ struct llist *dijkstra_path(const graph *g, const void *from, const void *to)
 	while(!heap_is_empty(to_process)) {
 		struct pqueue_node *curr = heap_remove_min(to_process);
 
+		if(curr->data == to) {
+			goto FOUND;
+		}
+
 		struct llist *adjacencies = graph_adjacent_to(g, curr->data);
 		struct llist *check = adjacencies;
 		while(check) {
-			if(check->data == to) {
-				goto FOUND;
-			}
 
 			int dist = curr->priority +
 				graph_edge_weight(g, curr->data, check->data);
