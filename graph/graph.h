@@ -2,6 +2,7 @@
  #define GRAPH_H
 
 #include <stdbool.h>
+#include <stdlib.h>
 
 typedef struct _adjllist_graph graph;
 
@@ -15,7 +16,8 @@ bool graph_add_edge(graph *g, const void *from, const void *to, int weight);
 bool graph_remove_node(graph *g, const void *data);
 bool graph_remove_edge(graph *g, const void *from, const void *to);
 
-bool graph_get_adjacent(const graph *g, const void *data);
+size_t graph_node_count(const graph *g);
+size_t graph_edge_count(const graph *g);
 
 void graph_print(const graph *g, void to_print(const void *, bool is_node));
 

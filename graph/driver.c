@@ -25,8 +25,11 @@ int main(void)
 	graph_add_edge(graphy, (void *)'B', (void *)'D', 5);
 	graph_add_edge(graphy, (void *)'D', (void *)'B', 5);
 	graph_add_edge(graphy, (void *)'C', (void *)'A', 5);
+	graph_add_node(graphy, (void *)'E');
 
 	graph_print(graphy, print_item);
+
+	printf("\n%zu nodes, %zu edges\n", graph_node_count(graphy), graph_edge_count(graphy));
 
 	graph_disassemble(graphy);
 }

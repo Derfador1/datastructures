@@ -241,6 +241,42 @@ bool graph_remove_edge(graph *g, const void *from, const void *to)
 	return false;
 }
 
+size_t graph_node_count(const graph *g)
+{
+	if(!g) {
+		return 0;
+	}
+
+	size_t count = 0;
+	struct node *curr = g->nodes;
+	while(curr) {
+		++count;
+		curr = curr->next;
+	}
+
+	return count;
+}
+
+size_t graph_edge_count(const graph *g)
+{
+	if(!g) {
+		return 0;
+	}
+
+	size_t count = 0;
+	struct node *curr = g->nodes;
+	while(curr) {
+		struct edge *check = curr->edges;
+		while(check) {
+			++count;
+			check = check->next;
+		}
+		curr = curr->next;
+	}
+
+	return count;
+}
+
 void graph_print(const graph *g, void to_print(const void *, bool is_node))
 {
 	if(!g) {
