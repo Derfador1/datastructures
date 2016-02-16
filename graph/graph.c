@@ -10,7 +10,7 @@ struct edge {
 };
 
 struct node {
-	void *data;
+	const void *data;
 	struct edge *edges;
 	struct node *next;
 };
@@ -74,7 +74,7 @@ void graph_destroy(graph *g)
 		}
 
 		struct node *tmp = curr->next;
-		free(curr->data);
+		free((void*)curr->data);
 		free(curr);
 
 		curr = tmp;
@@ -83,7 +83,7 @@ void graph_destroy(graph *g)
 	free(g);
 }
 
-bool graph_add_node(graph *g, void *data)
+bool graph_add_node(graph *g, const void *data)
 {
 	if(!g) {
 		return false;
