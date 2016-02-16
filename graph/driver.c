@@ -46,12 +46,35 @@ struct pqueue_node *__make_node(const void *data, int priority)
 	return pqn;
 }
 
+struct visited_node {
+	int distance;
+	struct pqueue_node *priority;
+	const void *prev;
+};
+
+struct visited_node *__make_vnode(int distance,
+		struct pqueue_node *priority, const void *prev)
+{
+	struct visited_node *vis = malloc(sizeof(*vis));
+	if(!vis) {
+		return NULL;
+	}
+	vis->prev = prev;
+	vis->distance = distance;
+	vis->priority = priority;
+
+	return vis;
+}
+
 struct llist *dijkstra_path(const graph *g, const void *from, const void *to)
 {
 	heap *to_process = heap_create(pq_compare);
 	struct pqueue_node *start =__make_node(from, 0);
 	heap_add(to_process, start);
 
+	hash *visited = hash_create();
+	struct visited_node *first = __make_vnode(0, start, NULL);
+	hash_insert(visited, from, first);
 
 
 
