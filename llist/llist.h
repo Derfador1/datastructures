@@ -5,16 +5,16 @@
 #include <stdbool.h>
 
 struct llist {
-	void *data;
+	const void *data;
 	struct llist *next;
 };
 
-struct llist *ll_create(void *data);
+struct llist *ll_create(const void *data);
 void ll_disassemble(struct llist *l);
 void ll_destroy(struct llist *l);
 
-void ll_add(struct llist **l, void *data);
-void *ll_remove(struct llist **l);
+void ll_add(struct llist **l, const void *data);
+const void *ll_remove(struct llist **l);
 
 
 void ll_append(struct llist *a,
@@ -23,6 +23,6 @@ bool ll_is_circular(struct llist *l);
 void ll_reverse(struct llist **l);
 
 bool ll_is_sorted(struct llist *l,
-		int (*cmp)(void *, void *));
+		int (*cmp)(const void *, const void *));
 
 #endif

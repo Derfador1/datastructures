@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 
-struct llist *ll_create(void *data)
+struct llist *ll_create(const void *data)
 {
 	struct llist *head = malloc(sizeof(*head));
 	if(head) {
@@ -28,13 +28,13 @@ void ll_destroy(struct llist *l)
 {
 	while(l) {
 		struct llist *tmp = l->next;
-		free(l->data);
+		free((void*)l->data);
 		free(l);
 		l = tmp;
 	}
 }
 
-void ll_add(struct llist **l, void *data)
+void ll_add(struct llist **l, const void *data)
 {
 	struct llist *item = ll_create(data);
 	if(item) {
@@ -43,11 +43,11 @@ void ll_add(struct llist **l, void *data)
 	}
 }
 
-void *ll_remove(struct llist **l)
+const void *ll_remove(struct llist **l)
 {
 	struct llist *old_head = *l;
 	*l = old_head->next;
-	void *data = old_head->data;
+	const void *data = old_head->data;
 	free(old_head);
 	return data;
 }
@@ -91,7 +91,7 @@ void ll_reverse(struct llist **l)
 }
 
 bool ll_is_sorted(struct llist *l,
-		int (*cmp)(void *, void *))
+		int (*cmp)(const void *, const void *))
 {
 	while(l && l->next) {
 		if(1 == cmp(l->data,
