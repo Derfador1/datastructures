@@ -109,7 +109,7 @@ bool hash_insert(hash *h, const char *key, void *value)
 void *hash_fetch(hash *h, const char *key)
 {
 	if(!h || !key) {
-		return 0;
+		return NULL;
 	}
 
 	size_t idx = hashish(key, h->capacity);
@@ -123,7 +123,27 @@ void *hash_fetch(hash *h, const char *key)
 		tmp = tmp->next;
 	}
 
-	return 0;
+	return NULL;
+}
+
+bool hash_exists(hash *h, const char *key)
+{
+	if(!h || !key) {
+		return false;
+	}
+
+	size_t idx = hashish(key, h->capacity);
+	struct h_llist *tmp = h->data[idx];
+
+	while(tmp) {
+		if(strcmp(tmp->key, key) == 0) {
+			return true;
+		}
+
+		tmp = tmp->next;
+	}
+
+	return false;
 }
 
 static int hash_recalculate(hash *h)
