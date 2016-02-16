@@ -112,6 +112,10 @@ struct llist *dijkstra_path(const graph *g, const void *from, const void *to)
 			check = check->next;
 		}
 	}
+	heap_destroy(to_process);
+	hash_destroy(visited);
+
+	return NULL;
 
 FOUND:
 	heap_destroy(to_process);
@@ -122,6 +126,7 @@ FOUND:
 				((struct visited_node *)hash_fetch(visited, path->data))->prev);
 	}
 
+	hash_destroy(visited);
 
 	return path;
 }
