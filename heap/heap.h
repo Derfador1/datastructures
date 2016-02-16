@@ -21,6 +21,8 @@ void heap_destroy(heap *h);
 bool heap_is_empty(heap *h);
 size_t heap_size(heap *h);
 
+void heap_rebalance(heap *h);
+
 bool heap_add(heap *h, void *value);
 void *heap_peek_min(heap *h);
 void *heap_remove_min(heap *h);

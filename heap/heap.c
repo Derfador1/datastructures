@@ -122,6 +122,20 @@ void *heap_remove_min(heap *h)
 	return value;
 }
 
+void heap_rebalance(heap *h)
+{
+	if(!h) {
+		return;
+	}
+
+	size_t pos = (h->size-1)/2;
+	while(pos) {
+		__heapify(h, pos);
+		--pos;
+	}
+}
+
+
 static bool __resize_heap(heap *h)
 {
 	void **tmp = realloc(h->data, 2*h->capacity * sizeof(*h->data));
