@@ -76,9 +76,53 @@ struct llist *dijkstra_path(const graph *g, const void *from, const void *to)
 	struct visited_node *first = __make_vnode(0, start, NULL);
 	hash_insert(visited, from, first);
 
+	while(!heap_is_empty(to_process)) {
+		struct pqueue_node *curr = heap_remove_min(to_process);
+
+		struct llist *adjacencies = graph_adjacent_to(g, curr->data);
+		struct llist *check = adjacencies;
+		while(check) {
+			if(check->data == to) {
+				goto FOUND;
+			}
+
+			int dist = curr->priority +
+				graph_edge_weight(g, curr->data, check->data);
+
+			if(!hash_exists(visited, check->data)) {
+				struct pqueue_node *pq_to_add =__make_node(check->data, dist);
+
+				struct visited_node *next_node =
+					__make_vnode(dist, pq_to_add, curr->data);
+
+				hash_insert(visited, check->data, next_node);
+				heap_add(to_process, pq_to_add);
+			} else {
+				struct visited_node *found = hash_fetch(visited, check->data);
+
+				if(dist < found->distance) {
+					found->distance = dist;
+					found->prev = curr->data;
+					found->priority->priority = dist;
+					heap_rebalance(to_process);
+				}
+			}
+
+			check = check->next;
+		}
+	}
+
+FOUND:
+	heap_destroy(to_process);
+
+	struct llist *path = ll_create(to);
+	while(hash_fetch(visited, path->data)) {
+		ll_add(&path,
+				((struct visited_node *)hash_fetch(visited, path->data))->prev);
+	}
 
 
-	return NULL;
+	return path;
 }
 
 
