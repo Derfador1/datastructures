@@ -11,6 +11,33 @@ graph *big_graph(void);
 void print_item(const void *data, bool is_node);
 void print_path(const struct llist *path);
 
+struct pqueue_node {
+	const void *data;
+	int priority;
+};
+
+struct pqueue_node *__make_node(const void *data, int priority)
+{
+	struct pqueue_node *pqn = malloc(sizeof(*pqn));
+	if(!pqn) {
+		return NULL;
+	}
+	pqn->data = data;
+	pqn->priority = priority;
+
+	return pqn;
+}
+
+struct llist *dijkstra_path(const graph *g, const void *from, const void *to)
+{
+
+	return NULL;
+}
+
+
+
+
+
 struct llist *graph_path(const graph *g, const void *from, const void *to)
 {
 	hash *visited = hash_create();
@@ -72,8 +99,22 @@ int main(void)
 	}
 
 	{
+		struct llist *path = dijkstra_path(bigun, "A", "L");
+		printf("Shortest A to L: ");
+		print_path(path);
+		ll_disassemble(path);
+	}
+
+	{
 		struct llist *path = graph_path(bigun, "K", "L");
 		printf("From K to L: ");
+		print_path(path);
+		ll_disassemble(path);
+	}
+
+	{
+		struct llist *path = dijkstra_path(bigun, "K", "L");
+		printf("Shortest K to L: ");
 		print_path(path);
 		ll_disassemble(path);
 	}
