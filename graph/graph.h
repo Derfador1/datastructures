@@ -24,6 +24,8 @@ bool graph_remove_edge(graph *g, const void *from, const void *to);
 size_t graph_node_count(const graph *g);
 size_t graph_edge_count(const graph *g);
 
+int graph_edge_weight(const graph *g, const void *from, const void *to);
+
 struct llist *graph_adjacent_to(const graph *g, const void *data);
 
 void graph_print(const graph *g, void to_print(const void *, bool is_node));

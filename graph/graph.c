@@ -295,6 +295,31 @@ size_t graph_edge_count(const graph *g)
 	return count;
 }
 
+int graph_edge_weight(const graph *g, const void *from, const void *to)
+{
+	if(!g) {
+		return 0;
+	}
+
+	struct node *curr = g->nodes;
+	while(curr && curr->data != from) {
+		curr = curr->next;
+	}
+	if(!curr) {
+		return 0;
+	}
+
+	struct edge *check = curr->edges;
+	while(check && check->to->data == to) {
+			check = check->next;
+	}
+	if(!check) {
+		return 0;
+	}
+
+	return check->weight;
+}
+
 struct llist *graph_adjacent_to(const graph *g, const void *data)
 {
 	if(!g || !data) {
