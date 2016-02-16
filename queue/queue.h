@@ -32,7 +32,7 @@ void queue_destroy(queue *q);
 bool queue_is_empty(queue *q);
 size_t queue_size(queue *q);
 
-bool queue_enqueue(queue *q, void *data);
+bool queue_enqueue(queue *q, const void *data);
 void *queue_dequeue(queue *q);
 
 void queue_flatten(queue **q);

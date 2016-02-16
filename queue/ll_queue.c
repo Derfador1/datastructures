@@ -43,7 +43,7 @@ bool queue_is_empty(queue *q)
 	return false;
 }
 
-bool queue_enqueue(queue *q, void *data)
+bool queue_enqueue(queue *q, const void *data)
 {
 	if(!q) {
 		return false;
