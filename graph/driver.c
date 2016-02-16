@@ -9,6 +9,7 @@
 
 graph *big_graph(void);
 void print_item(const void *data, bool is_node);
+void print_path(const struct llist *path);
 
 struct llist *graph_path(const graph *g, const void *from, const void *to)
 {
@@ -54,35 +55,31 @@ DONE:
 
 int main(void)
 {
-	graph *graphy = graph_create();
-
-	graph_add_node(graphy, "A");
-	graph_add_node(graphy, "B");
-	graph_add_edge(graphy, "B", "A", 5);
-	graph_add_node(graphy, "C");
-	graph_add_node(graphy, "D");
-	graph_add_edge(graphy, "B", "D", 5);
-	graph_add_edge(graphy, "D", "B", 5);
-	graph_add_edge(graphy, "C", "A", 5);
-	graph_add_node(graphy, "E");
-
-	graph_print(graphy, print_item);
-
-	printf("\n%zu nodes, %zu edges\n", graph_node_count(graphy), graph_edge_count(graphy));
-
-	struct llist *path = graph_path(graphy, (void *)"D", (void *)"A");
-	struct llist *curr = path;
-	while(curr) {
-		printf(u8"%s → ", (char *)(curr->data));
-		curr = curr->next;
-	}
-	printf("\n");
-	ll_disassemble(path);
-
 	graph *bigun = big_graph();
 	graph_print(bigun, print_item);
 
-	graph_disassemble(graphy);
+	printf("\n%zu nodes, %zu edges\n", graph_node_count(bigun), graph_edge_count(bigun));
+
+	{
+		struct llist *path = graph_path(bigun, "A", "L");
+		print_path(path);
+		ll_disassemble(path);
+	}
+
+	{
+		struct llist *path = graph_path(bigun, "K", "L");
+		print_path(path);
+		ll_disassemble(path);
+	}
+
+	{
+		struct llist *path = graph_path(bigun, "D", "A");
+		print_path(path);
+		ll_disassemble(path);
+	}
+
+
+	graph_disassemble(bigun);
 }
 
 graph *big_graph(void)
@@ -138,3 +135,11 @@ void print_item(const void *data, bool is_node)
 	}
 }
 
+void print_path(const struct llist *path)
+{
+	while(path) {
+		printf(u8"%s → ", (char *)(path->data));
+		path = path->next;
+	}
+	printf("\n");
+}
