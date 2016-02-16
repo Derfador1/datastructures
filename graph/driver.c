@@ -1,7 +1,8 @@
 
-
+#include <stdbool.h>
 #include <stdio.h>
 
+#include "llist.h"
 #include "graph.h"
 
 void print_item(const void *data, bool is_node)
@@ -11,6 +12,11 @@ void print_item(const void *data, bool is_node)
 	} else {
 		printf(u8" → %c", (char)data);
 	}
+}
+
+struct llist *graph_path(const graph *g, const void *from, const void *to)
+{
+	return NULL;
 }
 
 int main(void)
@@ -30,6 +36,15 @@ int main(void)
 	graph_print(graphy, print_item);
 
 	printf("\n%zu nodes, %zu edges\n", graph_node_count(graphy), graph_edge_count(graphy));
+
+	struct llist *path = graph_path(graphy, (void *)'D', (void *)'A');
+	struct llist *curr = path;
+	while(curr) {
+		printf(u8"%c → ", (char)(curr->data));
+		curr = curr->next;
+	}
+	printf("\n");
+	ll_disassemble(path);
 
 	graph_disassemble(graphy);
 }
