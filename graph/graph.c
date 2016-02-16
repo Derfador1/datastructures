@@ -277,6 +277,33 @@ size_t graph_edge_count(const graph *g)
 	return count;
 }
 
+struct llist *graph_adjacent_to(const graph *g, const void *data)
+{
+	if(!g || !data) {
+		return NULL;
+	}
+
+	struct node *curr = g->nodes;
+	while(curr) {
+		if(curr->data == data) {
+			if(!curr->edges) {
+				return NULL;
+			}
+
+			struct llist *head = NULL;
+			struct edge *adj = curr->edges;
+			while(adj) {
+				ll_add(&head, adj->to);
+			}
+
+			return head;
+		}
+		curr = curr->next;
+	}
+
+	return NULL;
+}
+
 void graph_print(const graph *g, void to_print(const void *, bool is_node))
 {
 	if(!g) {
