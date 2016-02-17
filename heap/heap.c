@@ -1,6 +1,14 @@
 
 #include "heap.h"
 
+struct _heap {
+	size_t size;
+	size_t capacity;
+	int (*cmp)(const void *, const void *);
+	void **data;
+};
+
+
 static const size_t DEFAULT_HEAP_CAPACITY = 8;
 
 #define PARENT(n) (((n)-1)/2)

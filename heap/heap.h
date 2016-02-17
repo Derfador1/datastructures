@@ -7,12 +7,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-typedef struct {
-	size_t size;
-	size_t capacity;
-	int (*cmp)(const void *, const void *);
-	void **data;
-} heap;
+typedef struct _heap heap;
 
 heap *heap_create(int (*cmp)(const void *, const void *));
 void heap_disassemble(heap *h);
