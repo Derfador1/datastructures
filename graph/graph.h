@@ -6,6 +6,7 @@
 #include <stdio.h>
 
 #include "llist.h"
+#include "../device.h"
 
 
 struct edge {
@@ -15,7 +16,7 @@ struct edge {
 };
 
 struct node {
-	const void *data;
+	struct device *data;
 	struct edge *edges;
 	struct node *next;
 };
