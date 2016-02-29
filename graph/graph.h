@@ -3,9 +3,26 @@
 
 #include <stdbool.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "llist.h"
 
+
+struct edge {
+	int weight;
+	struct node *to;
+	struct edge *next;
+};
+
+struct node {
+	const void *data;
+	struct edge *edges;
+	struct node *next;
+};
+
+struct _adjllist_graph {
+	struct node *nodes;
+};
 
 typedef struct _adjllist_graph graph;
 
@@ -29,5 +46,6 @@ int graph_edge_weight(const graph *g, const void *from, const void *to);
 struct llist *graph_adjacent_to(const graph *g, const void *data);
 
 void graph_print(const graph *g, void to_print(const void *, bool is_node));
+
 
 #endif
