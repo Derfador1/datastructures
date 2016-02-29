@@ -28,8 +28,8 @@ static uint64_t __wang_hash(uint64_t key);
 static void h_llist_disassemble(struct h_llist *list);
 static void h_llist_destroy(struct h_llist *list);
 
-static struct h_llist *h_llist_create(const char *key, void *value);
-static size_t hashish(const char *key, size_t capacity);
+static struct h_llist *h_llist_create(int key, void *value);
+static size_t hashish(int key, size_t capacity);
 
 // Negative returns imply error
 // 0 return implies no work taken
@@ -66,7 +66,7 @@ void hash_destroy(hash *h)
 }
 
 
-bool hash_insert(hash *h, const char *key, void *value)
+bool hash_insert(hash *h, int key, void *value)
 {
 	if(!h || !key) {
 		return false;
@@ -77,7 +77,7 @@ bool hash_insert(hash *h, const char *key, void *value)
 	// Search the hash for the value to update
 	struct h_llist *tmp = h->data[idx];
 	while(tmp) {
-		if(strcmp(tmp->key, key) == 0) {
+		if(tmp->key == key) {
 			tmp->value = value;
 			return true;
 		}
@@ -106,7 +106,7 @@ bool hash_insert(hash *h, const char *key, void *value)
 	return true;
 }
 
-void *hash_fetch(hash *h, const char *key)
+void *hash_fetch(hash *h, int key)
 {
 	if(!h || !key) {
 		return NULL;
@@ -126,7 +126,7 @@ void *hash_fetch(hash *h, const char *key)
 	return NULL;
 }
 
-bool hash_exists(hash *h, const char *key)
+bool hash_exists(hash *h, int key)
 {
 	if(!h || !key) {
 		return false;
@@ -246,7 +246,7 @@ static void h_llist_destroy(struct h_llist *list)
 }
 
 
-static struct h_llist *h_llist_create(const char *key, void *value)
+static struct h_llist *h_llist_create(int key, void *value)
 {
 	struct h_llist *node = malloc(sizeof(*node));
 	if(!node) {
@@ -264,7 +264,7 @@ static struct h_llist *h_llist_create(const char *key, void *value)
 	return node;
 }
 
-static size_t hashish(const char *key,
+static size_t hashish(int key,
 		size_t capacity)
 {
 	uint64_t buf = 0;
