@@ -94,6 +94,7 @@ bool hash_insert(hash *h, int key, void *value)
 	}
 
 	struct h_llist *new = h_llist_create(key, value);
+	new->key = key;
 	if(!new) {
 		return false;
 	}
@@ -136,7 +137,7 @@ bool hash_exists(hash *h, int key)
 	struct h_llist *tmp = h->data[idx];
 
 	while(tmp) {
-		if(tmp->key = key) {
+		if(tmp->key == key) {
 			return true;
 		}
 
@@ -228,7 +229,6 @@ static void h_llist_disassemble(struct h_llist *list)
 {
 	while(list) {
 		struct h_llist *tmp = list->next;
-		free(list->key);
 		free(list);
 		list = tmp;
 	}
@@ -238,7 +238,6 @@ static void h_llist_destroy(struct h_llist *list)
 {
 	while(list) {
 		struct h_llist *tmp = list->next;
-		free(list->key);
 		free(list->value);
 		free(list);
 		list = tmp;
