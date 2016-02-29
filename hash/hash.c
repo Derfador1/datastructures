@@ -6,7 +6,7 @@
 #include <string.h>
 
 struct h_llist {
-	char *key;
+	const void *key;
 	void *value;
 	struct h_llist *next;
 };
@@ -28,8 +28,8 @@ static uint64_t __wang_hash(uint64_t key);
 static void h_llist_disassemble(struct h_llist *list);
 static void h_llist_destroy(struct h_llist *list);
 
-static struct h_llist *h_llist_create(int key, void *value);
-static size_t hashish(int key, size_t capacity);
+static struct h_llist *h_llist_create(const void *key, void *value);
+static size_t hashish(const void *key, size_t capacity);
 
 // Negative returns imply error
 // 0 return implies no work taken
@@ -66,18 +66,18 @@ void hash_destroy(hash *h)
 }
 
 
-bool hash_insert(hash *h, int key, void *value)
+bool hash_insert(hash *h, const void *key, void *value)
 {
 	if(!h || !key) {
 		return false;
 	}
 
-	size_t idx = hashish(key, h->capacity);
+	size_t idx = hashish((int *)key, h->capacity);
 
 	// Search the hash for the value to update
 	struct h_llist *tmp = h->data[idx];
 	while(tmp) {
-		if(tmp->key == key) {
+		if(((int *)(tmp->key)) == (int *)key) {
 			tmp->value = value;
 			return true;
 		}
@@ -90,11 +90,11 @@ bool hash_insert(hash *h, int key, void *value)
 	if(val < 0) {
 		return false;
 	} else if(val > 0) {
-		idx = hashish(key, h->capacity);
+		idx = hashish((int *)key, h->capacity);
 	}
 
-	struct h_llist *new = h_llist_create(key, value);
-	new->key = key;
+	struct h_llist *new = h_llist_create((int *)key, value);
+	new->key = (int *)key;
 	if(!new) {
 		return false;
 	}
@@ -107,17 +107,17 @@ bool hash_insert(hash *h, int key, void *value)
 	return true;
 }
 
-void *hash_fetch(hash *h, int key)
+void *hash_fetch(hash *h, const void *key)
 {
 	if(!h || !key) {
 		return NULL;
 	}
 
-	size_t idx = hashish(key, h->capacity);
+	size_t idx = hashish((int *)key, h->capacity);
 	struct h_llist *tmp = h->data[idx];
 
 	while(tmp) {
-		if(tmp->key == key) {
+		if(((int *)(tmp->key)) == (int *)key) {
 			return tmp->value;
 		}
 
@@ -127,17 +127,17 @@ void *hash_fetch(hash *h, int key)
 	return NULL;
 }
 
-bool hash_exists(hash *h, int key)
+bool hash_exists(hash *h, const void *key)
 {
 	if(!h || !key) {
 		return false;
 	}
 
-	size_t idx = hashish(key, h->capacity);
+	size_t idx = hashish((int *)key, h->capacity);
 	struct h_llist *tmp = h->data[idx];
 
 	while(tmp) {
-		if(tmp->key == key) {
+		if(((int *)(tmp->key)) == (int *)key) {
 			return true;
 		}
 
@@ -162,7 +162,7 @@ static int hash_recalculate(hash *h)
 		struct h_llist *tmp = h->data[n];
 		while(tmp) {
 			hash_insert(cpy,
-					tmp->key, tmp->value);
+					((int *)(tmp->key)), tmp->value);
 			tmp = tmp->next;
 		}
 	}
@@ -245,14 +245,14 @@ static void h_llist_destroy(struct h_llist *list)
 }
 
 
-static struct h_llist *h_llist_create(int key, void *value)
+static struct h_llist *h_llist_create(const void *key, void *value)
 {
 	struct h_llist *node = malloc(sizeof(*node));
 	if(!node) {
 		return NULL;
 	}
 
-	node->key = key;
+	node->key = (int *)key;
 	if(!node->key) {
 		free(node);
 		return NULL;
@@ -263,10 +263,10 @@ static struct h_llist *h_llist_create(int key, void *value)
 	return node;
 }
 
-static size_t hashish(int key,
+static size_t hashish(const void *key,
 		size_t capacity)
 {
-	uint64_t buf = key;
+	uint64_t buf = (uint64_t)key;
 	//strncpy((char *)(&buf), key, sizeof(buf));
 
 	return __wang_hash(buf) % capacity;
