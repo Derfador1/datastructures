@@ -3,22 +3,6 @@
 
 #include <stdlib.h>
 
-struct edge {
-	int weight;
-	struct node *to;
-	struct edge *next;
-};
-
-struct node {
-	const void *data;
-	struct edge *edges;
-	struct node *next;
-};
-
-struct _adjllist_graph {
-	struct node *nodes;
-};
-
 void __graph_remove_edges_from_node(struct node *v);
 
 graph *graph_create(void)
@@ -357,7 +341,6 @@ void graph_print(const graph *g, void to_print(const void *, bool is_node))
 	struct node *curr = g->nodes;
 	while(curr) {
 		to_print(curr->data, true);
-
 		struct edge *check = curr->edges;
 		while(check) {
 			to_print(check->to->data, false);
