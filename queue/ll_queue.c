@@ -15,6 +15,7 @@ queue *queue_create(void)
 	return q;
 }
 
+
 void queue_destroy(queue *q)
 {
 	if(!q) {
