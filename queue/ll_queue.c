@@ -69,7 +69,7 @@ void *queue_dequeue(queue *q)
 		return NULL;
 	}
 
-	void *value = q->head->data;
+	const void *value = q->head->data;
 	struct llist *tmp = q->head;
 
 	q->head = q->head->next;
@@ -80,7 +80,7 @@ void *queue_dequeue(queue *q)
 		q->tail = NULL;
 	}
 
-	return value;
+	return (void *)value;
 }
 
 void queue_flatten(queue **q)
