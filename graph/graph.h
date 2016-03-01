@@ -10,7 +10,7 @@
 
 
 struct edge {
-	int weight;
+	double weight;
 	struct node *to;
 	struct edge *next;
 };
@@ -32,7 +32,7 @@ void graph_disassemble(graph *g);
 void graph_destroy(graph *g);
 
 bool graph_add_node(graph *g, const void *data);
-bool graph_add_edge(graph *g, const void *from, const void *to, int weight);
+bool graph_add_edge(graph *g, const void *from, const void *to, double weight);
 
 bool graph_has_node(graph *g, const void *data);
 
@@ -42,7 +42,7 @@ bool graph_remove_edge(graph *g, const void *from, const void *to);
 size_t graph_node_count(const graph *g);
 size_t graph_edge_count(const graph *g);
 
-int graph_edge_weight(const graph *g, const void *from, const void *to);
+double graph_edge_weight(const graph *g, const void *from, const void *to);
 
 struct llist *graph_adjacent_to(const graph *g, const void *data);
 
