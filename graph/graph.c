@@ -178,50 +178,61 @@ bool graph_remove_node(graph *g, const void *data)
 	}
 
 	bool removed = false;
-	struct node *curr = g->nodes;
-	if(!curr) {
-		return removed;
-	} else if(curr->data == data) {
-		g->nodes = curr->next;
+	struct node *curr_node = g->nodes;
+	struct node *prev_node = curr_node;
+	struct node *target = NULL;
 
-		__graph_remove_edges_from_node(curr);
-		free(curr);
+	if(!curr_node) {
+		return removed;
+	} else if(curr_node->data == data) {
+		g->nodes = curr_node->next;
+
+		__graph_remove_edges_from_node(curr_node);
+
+		target = curr_node;
+		free(curr_node);
+		curr_node = g->nodes;
 		removed = true;
 	}
 
-	struct node *prev = curr;
-	curr = curr->next;
-	while(curr) {
-		if(curr->data == data) {
-			prev->next = curr->next;
+	while(curr_node) {
+		if(curr_node->data == data) {
+			prev_node->next = curr_node->next;
 
-			__graph_remove_edges_from_node(curr);
-			free(curr);
+			__graph_remove_edges_from_node(curr_node);
+
+			target = curr_node;
+			free(curr_node);
+			curr_node = prev_node->next;
 			removed = true;
+			continue;
 		}
 
-		struct edge *check = curr->edges;
-		if(!check) {
-			break;
-		} else if(check->to->data == data) {
-			curr->edges = check->next;
-			free(check);
-			break;
+		struct edge *curr_edge = curr_node->edges;
+		struct edge *prev_edge = curr_edge;
+
+		if(!curr_edge) {
+			goto NEXT_NODE;
+		} else if((target && curr_edge->to == target) || curr_edge->to->data == data) {
+			curr_node->edges = curr_edge->next;
+			free(curr_edge);
+			goto NEXT_NODE;
 		}
 
-		while(check && check->next) {
-			if(check->next->to->data == data) {
-				struct edge *to_remove = check->next;
-				check->next = to_remove->next;
-				free(to_remove);
+		while(curr_edge) {
+			if((target && curr_edge->to == target) || curr_edge->to->data == data) {
+				prev_edge->next = curr_edge->next;
+				free(curr_edge);
 				break;
 			}
 
-			check = check->next;
+			prev_edge = curr_edge;
+			curr_edge = curr_edge->next;
 		}
 
-		prev = curr;
-		curr = curr->next;
+NEXT_NODE:
+		prev_node = curr_node;
+		curr_node = curr_node->next;
 	}
 
 	return removed;
