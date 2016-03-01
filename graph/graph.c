@@ -76,7 +76,7 @@ bool graph_add_node(graph *g, const void *data)
 	if(!new_node) {
 		return false;
 	}
-	new_node->data = data;
+	new_node->data = (struct device *)data;
 	new_node->edges = NULL;
 	new_node->next = g->nodes;
 
