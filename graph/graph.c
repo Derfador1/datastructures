@@ -16,7 +16,26 @@ graph *graph_create(void)
 	return g;
 }
 
+graph *graph_copy(const graph *g) 
+{
+	graph *tmp = graph_create();
 
+	struct node *tmp_node = g->nodes;
+	while(tmp_node) {
+		graph_add_node(tmp, tmp_node->data);
+		tmp_node = tmp_node->next;
+	}
+	tmp_node = g->nodes;
+	while(tmp_node) {
+		struct edge *test = tmp_node->edges;
+		while(test) {
+			graph_add_edge(tmp, tmp_node->data, test->to->data, test->weight);
+			test = test->next;
+		}
+		tmp_node = tmp_node->next;
+	}
+	return tmp;
+}
 
 void graph_disassemble(graph *g)
 {
