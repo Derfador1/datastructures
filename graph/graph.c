@@ -16,6 +16,8 @@ graph *graph_create(void)
 	return g;
 }
 
+
+
 void graph_disassemble(graph *g)
 {
 	if(!g) {
@@ -85,7 +87,7 @@ bool graph_add_node(graph *g, const void *data)
 	return true;
 }
 
-bool graph_add_edge(graph *g, const void *from, const void *to, int weight)
+bool graph_add_edge(graph *g, const void *from, const void *to, double weight)
 {
 	if(!g) {
 		return false;
@@ -123,6 +125,7 @@ bool graph_add_edge(graph *g, const void *from, const void *to, int weight)
 		return false;
 	}
 	new_edge->weight = weight;
+	//printf("input: %lf\n", weight);
 	new_edge->to = node_to;
 	new_edge->next = node_from->edges;
 
@@ -279,7 +282,7 @@ size_t graph_edge_count(const graph *g)
 	return count;
 }
 
-int graph_edge_weight(const graph *g, const void *from, const void *to)
+double graph_edge_weight(const graph *g, const void *from, const void *to)
 {
 	if(!g) {
 		return 0;
