@@ -6,7 +6,8 @@ struct device {
 	double longitude;
 	double latitude;
 	float altitude;
-	unsigned int source_dev_id; 	
+	unsigned int source_dev_id;
+	int count;	
 };
 
 #endif
