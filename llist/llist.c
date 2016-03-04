@@ -117,7 +117,7 @@ void ll_print(struct llist *test)
 	}
 }
 
-void ll_print_dev(struct llist *test)
+void ll_removed_dev(struct llist *test)
 {
 	struct llist *tmp = test;
 
