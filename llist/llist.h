@@ -36,4 +36,6 @@ void remover(struct llist **l, const void *data);
 
 void count_reseter(struct llist *l);
 
+void ll_print_dev(struct llist *test);
+
 #endif
