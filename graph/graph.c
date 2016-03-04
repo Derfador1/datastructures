@@ -394,3 +394,14 @@ void __graph_remove_edges_from_node(struct node *v)
 		e = tmp;
 	}
 }
+
+void print_item(const void *data, bool is_node)
+{
+	struct device *print = (struct device *)data;
+	if(is_node) {
+		printf("\n%d", print->source_dev_id);
+	} 
+	else {
+		printf(" → %d", print->source_dev_id);
+	}
+}
