@@ -122,7 +122,7 @@ void ll_print_dev(struct llist *test)
 	struct llist *tmp = test;
 
 	while(tmp) {
-		const struct device *data = tmp->data;
+		struct device *data = (struct device *)tmp->data;
 		printf("Removing Device #%d\n", data->source_dev_id);
 		tmp = tmp->next;
 	}
@@ -175,10 +175,10 @@ void remover(struct llist **l, const void *data)
 	while(*head) {
 		if((*head)->data == data) {
 			void *to_free = *head;
-			void *to_free2 = (void *)(*head)->data;
+			//void *to_free2 = (void *)(*head)->data;
 			*head = (*head)->next;
 			free(to_free);
-			free(to_free2);
+			//free(to_free2);
 		}
 
 		if(!*head) {
