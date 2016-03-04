@@ -104,3 +104,82 @@ bool ll_is_sorted(struct llist *l,
 	return true;
 }
 
+void ll_print(struct llist *test)
+{
+	struct llist *tmp = test;
+
+	while(tmp) {
+		const struct device *data = tmp->data;
+		printf(u8"%d → ", data->source_dev_id);
+		//printf(u8"%d → ", data->count);
+		//printf("Battery Power %.02lf%%\n", data->battery_power);
+		tmp = tmp->next;
+	}
+}
+
+
+void ll_test(struct llist *test)
+{
+	struct llist *tmp = test;
+
+	while(tmp) {
+		const struct device *data = tmp->data;
+		printf(u8"%d → ", data->source_dev_id);
+		printf(u8"%d → \n", data->count);
+		//printf("Battery Power %.02lf%%\n", data->battery_power);
+		tmp = tmp->next;
+	}
+}
+
+unsigned int find_min(struct llist *l)
+{
+	int max = 0;
+
+	struct llist *test = l;
+
+	unsigned int source_id = 0;
+	
+	while(l) {
+		struct device *tmp1 = (struct device *)l->data;
+
+		if(tmp1->count > max) {
+			max = tmp1->count;
+		}
+		else if(tmp1->count <= max) {
+			source_id = tmp1->source_dev_id;
+		}
+
+		l = l->next;
+	}
+
+	l = test;
+	return source_id;
+}
+
+void remover(struct llist **l, const void *data)
+{
+	struct llist **head;
+	head = l;
+	while(*head) {
+		if((*head)->data == data) {
+			void *to_free = *head;
+			*head = (*head)->next;
+			free(to_free);
+		}
+
+		if(!*head) {
+			return;
+		}
+
+		head = &((*head)->next);
+	}
+}
+
+void count_reseter(struct llist *l)
+{
+	while(l) {
+		struct device *tmp1 = (struct device *)l->data;
+		tmp1->count = 0;
+		l = l->next;
+	}
+}
