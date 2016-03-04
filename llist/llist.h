@@ -3,6 +3,7 @@
  #define LLIST_H
 
 #include <stdbool.h>
+#include "../device.h"
 
 struct llist {
 	const void *data;
@@ -24,5 +25,15 @@ void ll_reverse(struct llist **l);
 
 bool ll_is_sorted(struct llist *l,
 		int (*cmp)(const void *, const void *));
+
+void ll_print(struct llist *test);
+
+void ll_test(struct llist *test);
+
+unsigned int find_min(struct llist *l);
+
+void remover(struct llist **l, const void *data);
+
+void count_reseter(struct llist *l);
 
 #endif
