@@ -49,5 +49,7 @@ struct llist *graph_adjacent_to(const graph *g, const void *data);
 void graph_print(const graph *g, void to_print(const void *, bool is_node));
 graph *graph_copy(const graph *g);
 
+void print_item(const void *data, bool is_node);
+
 
 #endif
