@@ -117,6 +117,18 @@ void ll_print(struct llist *test)
 	}
 }
 
+void ll_print_dev(struct llist *test)
+{
+	struct llist *tmp = test;
+
+	while(tmp) {
+		const struct device *data = tmp->data;
+		printf("Removing Device #%d\n", data->source_dev_id);
+		tmp = tmp->next;
+	}
+}
+
+
 
 void ll_test(struct llist *test)
 {
