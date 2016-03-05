@@ -16,6 +16,7 @@ graph *graph_create(void)
 	return g;
 }
 
+//working code of graph copy acquired from dsprimm
 graph *graph_copy(const graph *g) 
 {
 	graph *tmp = graph_create();
