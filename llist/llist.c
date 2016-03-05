@@ -168,6 +168,7 @@ unsigned int find_min(struct llist *l)
 	return source_id;
 }
 
+//uses double pointers to remove nodes from a linked list but not lose data
 void remover(struct llist **l, const void *data)
 {
 	struct llist **head;
@@ -175,20 +176,19 @@ void remover(struct llist **l, const void *data)
 	while(*head) {
 		if((*head)->data == data) {
 			void *to_free = *head;
-			//void *to_free2 = (void *)(*head)->data;
 			*head = (*head)->next;
 			free(to_free);
-			//free(to_free2);
 		}
 
 		if(!*head) {
 			return;
 		}
 
-		head = &((*head)->next);
+		head = &((*head)->next); //sets head to the address or the thing at heads next
 	}
 }
 
+//small function to walk through and reset the count to 0
 void count_reseter(struct llist *l)
 {
 	while(l) {
